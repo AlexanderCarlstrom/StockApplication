@@ -12,7 +12,36 @@ class App extends React.Component {
   }
 
   render() {
-    return <div className="app">{this.state.currentPage}</div>;
+    return (
+      <div className="app">
+        <ul>
+          <li>
+            <button
+              onClick={() => {
+                this.setState({
+                  currentPage: <Dashboard />,
+                });
+              }}
+            >
+              Dashboard
+            </button>
+          </li>
+          <li>
+            <button
+              href="#"
+              onClick={() => {
+                this.setState({
+                  currentPage: <Auth />,
+                });
+              }}
+            >
+              Auth
+            </button>
+          </li>
+        </ul>
+        <div>{this.state.currentPage}</div>
+      </div>
+    );
   }
 }
 
