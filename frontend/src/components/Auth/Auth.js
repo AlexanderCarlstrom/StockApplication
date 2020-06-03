@@ -1,5 +1,7 @@
 import React from 'react';
 import './Auth.css';
+import Dashboard from '../Dashboard/Dashboard';
+import App from '../App';
 
 class AuthPage extends React.Component {
   render() {
