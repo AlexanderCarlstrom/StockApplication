@@ -1,9 +1,22 @@
-#leftDiv{
-    width:45%;
-    display:inline-block;
+#leftDiv {
+    width: 48%;
+    display: block;
+    border: solid 1px black;
+    padding: 10px;
+    float: left;
+    box-sizing: border-box;
 }
 
-#rightDiv{
-    width:45%;
-    display:inline-block;
+#rightDiv {
+    width: 48%;
+    display: block;
+    border: solid 1px black;
+    padding: 10px;
+    float: right;
+    box-sizing: border-box;
+}
+
+#homePageContainerDiv {
+    padding: 20px;
+    margin: 10px;
 }

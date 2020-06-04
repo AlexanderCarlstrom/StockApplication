@@ -6,7 +6,7 @@ import './Home.css';
 class Home extends React.Component {
   render() {
     return (
-      <div>
+      <div id="homePageContainerDiv">
         <div id="leftDiv">
           <MyProfile />
         </div>

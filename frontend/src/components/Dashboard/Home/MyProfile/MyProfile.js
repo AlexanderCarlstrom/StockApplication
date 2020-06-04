@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "@material-ui/core";
+import "./MyProfile.css";
 
 class MyProfile extends React.Component {
   constructor(props) {
@@ -7,13 +9,14 @@ class MyProfile extends React.Component {
   }
   retrieveUserData = () => {
     return {
-      preferedIndustries: [
-        "industri 1",
+      preferredIndustries: [
+        "Industri 1",
         "Industri 2",
         "Industri 3",
         "Industri 4",
       ],
-      profilePic: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Hej14aug2010.JPG/1024px-Hej14aug2010.JPG",
+      profilePic:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Hej14aug2010.JPG/1024px-Hej14aug2010.JPG",
       firstName: "Martin",
       lastName: "Göransson",
       idenficationNumber: "000102-0304",
@@ -29,8 +32,34 @@ class MyProfile extends React.Component {
   render() {
     return (
       <div>
-        My Profile <br />
-        {this.userData.firstName} {this.userData.lastName}
+        <div className="containerDiv" id="headerDiv">
+          My Profile
+          <Button variant="contained" color="primary" id="editProfileButton">
+            Edit profile
+          </Button>
+        </div>
+        <div className="containerDiv" id="profileDiv">
+          <img
+            src={this.userData.profilePic}
+            id="profilePicture"
+            alt="Profile Picture"
+          />
+          <div>
+            {this.userData.firstName} {this.userData.lastName}
+            <p>Social Security Number/Organisation Number</p>
+            <p>{this.userData.idenficationNumber}</p>
+          </div>
+        </div>
+        <div className="containerDiv" id="preferredIndustiresDiv">
+          <p>Preferred Industires</p>
+          <div id="industryCollection">
+            {this.userData.preferredIndustries.map((industry) => (
+              <div className="industryItem">
+                <p>{industry}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
