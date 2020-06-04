@@ -45,13 +45,13 @@ class MyProfile extends React.Component {
             alt="Profile Picture"
           />
           <div>
-            {this.userData.firstName} {this.userData.lastName}
-            <p>Social Security Number/Organisation Number</p>
+            <p id="profileText">{this.userData.firstName} {this.userData.lastName}</p>
+            <p className="headerText">Social Security Number/Organisation Number</p>
             <p>{this.userData.idenficationNumber}</p>
           </div>
         </div>
         <div className="containerDiv" id="preferredIndustiresDiv">
-          <p>Preferred Industires</p>
+          <p className="headerText" id="preferredIndustriesText">Preferred Industires</p>
           <div id="industryCollection">
             {this.userData.preferredIndustries.map((industry) => (
               <div className="industryItem">

@@ -12,6 +12,17 @@
 #profileDiv {
     display: flex;
     align-items: center;
+    padding-bottom: 40px;
+}
+
+p {
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#profileText {
+    padding-bottom: 10px;
+    font-size: 26px;
 }
 
 #industryCollection {
@@ -28,11 +39,24 @@
     height: 50%;
 }
 
+.headerText {
+    color: grey;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+#preferredIndustriesText {
+    font-size: 18px;
+}
+
 #profilePicture {
     border-radius: 70%;
     display: inline;
     max-width: 230px;
     max-height: 95px;
     margin-right: 50px;
-    ;
+    min-width: 40px;
+    padding: 0;
+    margin: 0;
 }
