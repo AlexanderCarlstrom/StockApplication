@@ -50,6 +50,34 @@ p {
     font-size: 18px;
 }
 
+#preferredIndustriesDiv {
+    padding-left: 20px;
+}
+
+#personalInformationDiv {
+    padding-left: 60px;
+}
+
+.contactInformationHeader {
+    display: inline;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+#contactInformationSectionHeader {
+    padding: 20px;
+    font-size: 24px;
+}
+
+.contactInformation {
+    color:grey;
+    float:right;
+    padding-right: 50%;
+}
+.contactInformationDiv{
+    padding:10px;
+}
+
+
 #profilePicture {
     border-radius: 70%;
     display: inline;

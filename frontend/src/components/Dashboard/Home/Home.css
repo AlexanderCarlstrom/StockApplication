@@ -1,5 +1,5 @@
 #leftDiv {
-    width: 48%;
+    width: 45%;
     display: block;
     border: solid 1px black;
     padding: 10px;
@@ -8,7 +8,7 @@
 }
 
 #rightDiv {
-    width: 48%;
+    width: 54%;
     display: block;
     border: solid 1px black;
     padding: 10px;
