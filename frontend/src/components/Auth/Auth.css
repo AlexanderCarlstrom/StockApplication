@@ -1,63 +1,52 @@
 #auth-page {
-  width: 400px;
-  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-  margin: 100px auto;
-}
-
-.header {
   width: 100%;
+  margin: 0;
   padding: 0;
-  margin: 0 0 50px;
 }
 
-.header button {
-  display: inline-block;
-  background-color: rgb(202, 202, 202);
-  color: rgba(0, 0, 0, 0.3);
-  border: none;
-  outline: 0;
+.auth-form {
+  width: 400px;
+  margin: 100px auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  padding-top: 40px;
+}
+
+.auth-form .auth-header {
   width: 50%;
-  padding: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
+  text-align: center;
+  display: block;
+  position: absolute;
+  left: 25%;
+  top: 0;
+  transform: translate(0, -50%);
 }
 
-.header button:hover {
-  background-color: rgb(198, 198, 198);
-}
-
-.header button:disabled {
-  background: #fff;
-  color: #000;
-}
-
-#auth-form {
-  width: 100%;
-  padding: 0 50px 50px;
-  box-sizing: border-box;
-}
-
-#auth-form input {
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  padding: 10px;
-  box-sizing: border-box;
-  margin: 10px 0;
-}
-
-#auth-form button {
-  padding: 10px 20px;
-  border: none;
-  border: 2px solid #000;
-  background-color: #fff;
-  color: #000;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: all 0.2s ease-in;
-}
-
-#auth-form button:hover {
-  background-color: #000;
+.auth-form .auth-header h5 {
+  padding: 15px;
   color: #fff;
+}
+
+.auth-form form {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  display: block;
+}
+
+.auth-form form .form-input {
+  margin-bottom: 20px;
+}
+
+.auth-form form .form-footer {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-form .toggle-form {
+  cursor: pointer;
+  float: right;
+  margin-top: 20px;
 }
