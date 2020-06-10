@@ -1,5 +1,4 @@
 import { AppBar, TextField, Button, Typography, Link } from '@material-ui/core';
-import { withTheme } from '@material-ui/core/styles';
 import AuthService from '../../services/AuthService';
 import React from 'react';
 
@@ -14,7 +13,7 @@ class Login extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    AuthService.login(this.state.email, this.state.password);
+    console.log(AuthService.login(this.state.email, this.state.password));
   };
 
   onEmailChange = (e) => {
@@ -81,4 +80,4 @@ class Login extends React.Component {
   }
 }
 
-export default withTheme(Login);
+export default Login;

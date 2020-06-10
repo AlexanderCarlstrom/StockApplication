@@ -1,12 +1,15 @@
 import Users from '../data/users.json';
 
 function login(email, password) {
+  let found = false;
   Users.map((user) => {
     if (user.email === email) {
-      return user.password === password;
+      if (user.password === password) {
+        found = true;
+      }
     }
   });
-  return false;
+  return found;
 }
 
 function register(email, password) {

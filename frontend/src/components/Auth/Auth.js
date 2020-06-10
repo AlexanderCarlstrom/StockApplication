@@ -7,8 +7,12 @@ import './Auth.css';
 class AuthPage extends React.Component {
   constructor() {
     super();
+
+    this.login = <Login toggle={this.showRegisterForm} />;
+    this.register = <Register toggle={this.showLoginForm} />;
+
     this.state = {
-      currentPage: <Login toggle={this.showRegisterForm} />,
+      currentPage: this.login,
       login: true,
     };
 
@@ -18,33 +22,15 @@ class AuthPage extends React.Component {
 
   showLoginForm = () => {
     this.setState({
-      currentPage: <Login />,
-      login: true,
+      currentPage: this.login,
     });
   };
 
   showRegisterForm = () => {
     this.setState({
-      currentPage: <Register />,
-      login: false,
+      currentPage: this.register,
     });
     console.log('hello');
-  };
-
-  toggleForm = () => {
-    this.setState((prev) => {
-      if (prev.login) {
-        return {
-          currentPage: <Register />,
-          login: false,
-        };
-      } else {
-        return {
-          currentPage: <Login />,
-          login: true,
-        };
-      }
-    });
   };
 
   render() {
