@@ -13,7 +13,10 @@ class Login extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(AuthService.login(this.state.email, this.state.password));
+    const result = AuthService.login(this.state.email, this.state.password);
+    if (result) {
+      console.log('logged in');
+    }
   };
 
   onEmailChange = (e) => {
@@ -42,6 +45,7 @@ class Login extends React.Component {
           <TextField
             id="email"
             className="form-input"
+            type="email"
             label="Email"
             variant="outlined"
             onChange={this.onEmailChange}
@@ -51,6 +55,7 @@ class Login extends React.Component {
           <TextField
             id="password"
             className="form-input"
+            type="password"
             label="Password"
             variant="outlined"
             onChange={this.onPasswordChange}

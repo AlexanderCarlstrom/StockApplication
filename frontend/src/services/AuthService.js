@@ -15,7 +15,10 @@ function login(email, password) {
 function register(email, password) {
   Users.map((user) => {
     if (user.email === email) {
-      return false;
+      return {
+        success: false,
+        message: 'email already exist',
+      };
     }
   });
 
@@ -24,7 +27,10 @@ function register(email, password) {
     password: password,
   });
 
-  return true;
+  return {
+    success: true,
+    message: 'register complete',
+  };
 }
 
 export default {
