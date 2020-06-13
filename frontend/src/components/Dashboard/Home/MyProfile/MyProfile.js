@@ -21,7 +21,7 @@ class MyProfile extends React.Component {
           <img
             src={this.userData.profilePic}
             id="profilePicture"
-            alt="Profile Picture"
+            alt="Profile"
           />
           <div id="personalInformationDiv">
             <p id="profileText">

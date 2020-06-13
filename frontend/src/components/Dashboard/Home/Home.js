@@ -10,7 +10,16 @@ class Home extends React.Component {
         "Industri 1",
         "Industri 2",
         "Industri 3",
-        "Industri 4",
+        "Industri 4"
+      ],
+      ownedShares: [
+        { companyName: "Company 1", typeOfTrade: "Industri 1", value: 22222 },
+        { companyName: "Company 2", typeOfTrade: "Industri 1", value: 133 },
+        { companyName: "Company 3", typeOfTrade: "Industri 2", value: 2274674222 },
+        { companyName: "Company 4", typeOfTrade: "Industri 3", value: 1321231 },
+        { companyName: "Company 5", typeOfTrade: "Industri 4", value: 65436 },
+        { companyName: "Company 6", typeOfTrade: "Industri 4", value: 765745 },
+        { companyName: "Company 7", typeOfTrade: "Industri 3", value: 7574 },
       ],
       profilePic:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Hej14aug2010.JPG/1024px-Hej14aug2010.JPG",

@@ -1,0 +1,50 @@
+.industry0 {
+    display: inline-block;
+    margin-right:30px;
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    border: 1px solid black;
+}
+
+.industry1 {
+    display: inline-block;
+    margin-right:30px;
+    width: 10px;
+    height: 10px;
+    background-color: turquoise;
+    border: 1px solid black;
+}
+
+.industry2 {
+    display: inline-block;
+    margin-right:30px;
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+    border: 1px solid black;
+}
+
+.industry3 {
+    display: inline-block;
+    margin-right:30px;
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border: 1px solid black;
+}
+
+#barDiv {
+    padding-bottom: 50px;
+}
+
+#companySummaryDiv {}
+
+.valueText {
+    display: block;
+    float: right;
+}
+
+p {
+    display: inline-block
+}
