@@ -86,16 +86,18 @@ class MyShareholding extends React.Component {
         </div>
         <div id="companySummaryDiv">
           {this.industryArray.map((industry, index) => (
-            <div>
+            <div className="industrySummaryDiv">
               <div
                 key={index + 1 * 30}
                 className={"industry" + index.toString()}
               ></div>
-              <p key={index}>{industry}</p>,
+              <div className="companyIndustryDiv">
+              <p key={index} className="industryText">{industry}</p>
+              <p key={index + 1 * 10} className="companyText">{this.getCompanyString(industry)}</p>
+              </div>
               <p key={index + 1 * 20} className="valueText">
                 {this.getTotalIndustryValue(industry)} SEK
               </p>
-              <p key={index + 1 * 10}>{this.getCompanyString(industry)}</p>
             </div>
           ))}
         </div>
