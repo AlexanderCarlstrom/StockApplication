@@ -74,9 +74,8 @@ class MyShareholding extends React.Component {
             {this.userData.ownedShares.map((ownedShare, index) => (
               <ProgressBar
                 variant={
-                  this.tempVariants[
-                    this.industryArray.indexOf(ownedShare.typeOfTrade)
-                  ]
+                  "industry" +
+                  this.industryArray.indexOf(ownedShare.typeOfTrade).toString()
                 }
                 now={100 / this.userData.ownedShares.length}
                 key={index}
@@ -92,8 +91,12 @@ class MyShareholding extends React.Component {
                 className={"industry" + index.toString()}
               ></div>
               <div className="companyIndustryDiv">
-              <p key={index} className="industryText">{industry}</p>
-              <p key={index + 1 * 10} className="companyText">{this.getCompanyString(industry)}</p>
+                <p key={index} className="industryText">
+                  {industry}
+                </p>
+                <p key={index + 1 * 10} className="companyText">
+                  {this.getCompanyString(industry)}
+                </p>
               </div>
               <p key={index + 1 * 20} className="valueText">
                 {this.getTotalIndustryValue(industry)} SEK

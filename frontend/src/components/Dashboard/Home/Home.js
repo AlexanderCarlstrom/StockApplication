@@ -20,6 +20,18 @@ class Home extends React.Component {
         { companyName: "Company 5", typeOfTrade: "Industri 4", value: 65436 },
         { companyName: "Company 6", typeOfTrade: "Industri 4", value: 765745 },
         { companyName: "Company 7", typeOfTrade: "Industri 3", value: 7574 },
+        
+        { companyName: "Company 7", typeOfTrade: "Industri 5", value: 7574 },
+        
+        { companyName: "Company 7", typeOfTrade: "Industri 6", value: 7574 },
+        
+        { companyName: "Company 7", typeOfTrade: "Industri 7", value: 7574 },
+        
+        { companyName: "Company 7", typeOfTrade: "Industri 8", value: 7574 },
+        
+        { companyName: "Company 7", typeOfTrade: "Industri 9", value: 7574 },
+        
+        { companyName: "Company 7", typeOfTrade: "Industri 10", value: 7574 },
       ],
       profilePic:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Hej14aug2010.JPG/1024px-Hej14aug2010.JPG",

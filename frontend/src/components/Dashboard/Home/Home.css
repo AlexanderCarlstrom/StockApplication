@@ -25,5 +25,5 @@
     padding: 20px;
     margin: 10px;
     display: flex;
-    height: 680px;
+    overflow: auto;
 }
