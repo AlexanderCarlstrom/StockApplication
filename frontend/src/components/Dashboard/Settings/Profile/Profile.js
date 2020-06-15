@@ -16,14 +16,14 @@ const Profile = () => (
     );
 
 const ProfileImage = (props) => {
-  //const [image, setImage] = useState({DefaultPic});
-  const uploadedImage = React.useRef({DefaultPic});
+  //const [image, setImage] = useState(props.DefaultPic);
+  const uploadedImage = React.useRef(props.DefaultPic);
 
   const handleImageUpload = (e) => {
     const [file] = e.target.files;
     if (file) {
       const reader = new FileReader();
-      const {current} = props.uploadedImage;
+      const {current} = uploadedImage;
       current.file = file;
       reader.onload = (e) => {
         current.src = e.target.result;
@@ -35,7 +35,7 @@ const ProfileImage = (props) => {
   return (
     <div className="profileImg">
         <img 
-          ref={props.uploadedImage} 
+          ref={uploadedImage} 
           width="100px" 
           className='uploadedImg' 
           onError=''
@@ -57,76 +57,78 @@ const ProfileImage = (props) => {
 };
 
 ProfileImage.defaultProps = {
-  uploadedImage: {DefaultPic},
+  uploadedImage: DefaultPic,
 };
 
-class ProfileForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: '',
-      firstName: '',
-      lastName: '',
-      securityNumber: '',
-      address: '',
-      city: '',
-      zip: '',
-      phoneNumber: '',
-      email: '',
-    }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+const ProfileForm = (props) => {
 
-  }
-
-  handleSubmit = (e) => {
-    alert(JSON.stringify(e));
+  const userFormData = {
+    id: 1,
+    firstName: 'Hilda',
+    lastName: 'Olofsdotter',
+    securityNumber: 1111112222,
+    address: 'Halmstad 1',
+    city: 'Halmstad',
+    zip: 12345,
+    phoneNumber: 1245324578,
+    email: 'hilda.hilda@hilda.com',
   };
 
-  handleChange = (e) => {
-    this.setState({firstName: e.target.value});
-    this.setState({lastName: e.target.value});
-  }
+  const [firstName, setFirstName] = useState(userFormData.firstName);
+  const [lastName, setLastName] = useState(userFormData.lastName);
+  const [securityNumber, setSecurityNumber] = useState(userFormData.securityNumber);
+  const [address, setAddress] = useState(userFormData.address);
+  const [city, setCity] = useState(userFormData.city);
+  const [zip, setZip] = useState(userFormData.zip);
+  const [phoneNumber, setPhoneNumber] = useState(userFormData.phoneNumber);
+  const [email, setEmail] = useState(userFormData.email);
+  const [userInfo, setUserInfo] = useState([]);
 
-  render() {
-    return (
-      <div className='form-content'>
-      <form>
-        <label>First name</label>
-        <TextField type='text' name='firstName' value={this.state.firstName} onChange={this.handleChange} />
-  
-        <label>Last name</label>
-        <TextField type='text' name='lastName' value={this.state.lastName} onChange={this.handleChange} />
-  
-        <label>Security number</label>
-        <TextField type='number' name='securityNumber' value={this.state.securityNumber} onChange={this.handleChange} />
-  
-        <label>Address</label>
-        <TextField type='text' name='address' value={this.state.address} onChange={this.handleChange} />
-  
-        <label>City</label>
-        <TextField type='text' name='city' value={this.state.city} onChange={this.handleChange} />
-  
-        <label>Zip</label>
-        <TextField type='number' name='zip' value={this.state.zip} onChange={this.handleChange} />
-  
-        <label>Phone number</label>
-        <TextField type='number' name='phoneNumber' value={this.state.phoneNumber} onChange={this.handleChange} />
-  
-        <label>Email</label>
-        <TextField type='text' name='email' value={this.state.email} onChange={this.handleChange} />
-  
-        <Button 
-            type='submit'
-            className='save'
-            onClick={this.handleSubmit}
-            >Save</Button>
-      </form>
-      </div>
-    )
+  const handleSubmit = (e) => {
+    console.log(JSON.stringify(e));
+    //const form = e.target;
+    //const data = new FormData(form);
   }
-}
+  
+  return (
+    <div className='form-content'>
+    <form>
+      <label>First name</label>
+      <TextField type='text' name='firstName' value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+
+      <label>Last name</label>
+      <TextField type='text' name='lastName' value={lastName} onChange={(e) => setLastName(e.target.value)} />
+
+      <label>Security number</label>
+      <TextField type='number' name='securityNumber' value={securityNumber} onChange={(e) => setSecurityNumber(e.target.value)} />
+
+      <label>Address</label>
+      <TextField type='text' name='address' value={address} onChange={(e) => setAddress(e.target.value)} />
+
+      <label>City</label>
+      <TextField type='text' name='city' value={city} onChange={(e) => setCity(e.target.value)} />
+
+      <label>Zip</label>
+      <TextField type='number' name='zip' value={zip} onChange={(e) => setZip(e.target.value)} />
+
+      <label>Phone number</label>
+      <TextField type='number' name='phoneNumber' value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+
+      <label>Email</label>
+      <TextField type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+
+      <Button 
+          type='submit'
+          className='save'
+          onClick={handleSubmit}
+          >Save</Button>
+    </form>
+    </div>
+  );
+};
+
+
 
 export default Profile;
 

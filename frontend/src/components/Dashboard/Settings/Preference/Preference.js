@@ -7,69 +7,53 @@ import { useForm } from "react-hook-form";
 const Preference = () => {
     return (
         <div className='preference'>
-        <CheckBox />
+        <CheckBoxForm />
         </div>
     )
 }
 
+const CheckBox = ({value, isClicked}) => {
+    return (
+        <label>
+            {value}
+            <Checkbox
+                onClick={isClicked}
+            />
+        </label>
+    )
+}
 
-const CheckBox = () => {
-    const [state, setState] = useState({
-        optionA: true,
-        optionB: true,
-        optionC: true,
-        optionD: true,
-    });
-    const [option, setOptions] = useState([]);
+const CheckBoxForm = (props) => {
 
-    const handleChange = (e) => {
-        setState({...state, [e.target.id]: e.target.checked });
+    const options = 'Brödrost Industri Skog Slev Kastrull'.split(' ');
+
+    const GenerateCheckBox = () => {
+        return options.map((option, index) => (
+            <CheckBox key={index}
+                isClicked={() => checked(index)}
+                value={option}
+            />
+        ));
     };
+
+    const checked = (index) => {
+
+    }
 
     return (
         <div className='form-content'>
-            <form onSubmit={(e) => handleChange()}>
-                <label>
-                Option 1
-                <Checkbox 
-                    type='checkbox'
-                    id='optionA'
-                    value={1}
-                />
-                </label>
-                <label>
-                Option 2
-                <Checkbox 
-                    type='checkbox'
-                    id='optionB'
-                    value={2}
-                />
-                </label>
-                <label>
-                Option 3
-                <Checkbox 
-                    type='checkbox'
-                    id='optionC'
-                    value={3}
-                />
-                </label>
-                <label>
-                Option 4
-                <Checkbox 
-                    type='checkbox'
-                    id='optionD'
-                    value={4}
-                />
-                </label>
-                <div>
-                <Button type="submit" value="submit" className="save">
-                Save
-                </Button>
-                </div>
+            <form>
+            <GenerateCheckBox />
+            <div>
+            <Button type="submit" value="submit" className="save">
+            Save
+            </Button>
+            </div>
             </form>
         </div>
-    );
-};
+    )
+
+}
 
 
 export default Preference;
