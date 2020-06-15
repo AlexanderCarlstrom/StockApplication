@@ -4,10 +4,10 @@ import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
 import Profile from './Profile/Profile.js';
 import Password from './Password/Password.js';
 import Preference from './Preference/Preference.js';
-import Button from '@material-ui/core/Button';
+import { Button, AppBar } from '@material-ui/core';
 
 const SettingsHeader = () => (
-  <header>
+  <div className='settings-header'>
     <h1>Settings</h1>
     <NavLink to='/' activeClassName='is-active' exact={true}>
       <Button>My profile</Button>
@@ -18,18 +18,20 @@ const SettingsHeader = () => (
     <NavLink to='/preference' activeClassName='is-active' exact={true}>
       <Button>Preferences</Button>
     </NavLink>
-  </header>
+  </div>
 );
 
 const Settings = () => (
   <BrowserRouter>
-  <div>
+  <div className='settings'>
   <SettingsHeader />
+  <div className='settings-content'>
   <Switch>
     <Route path='/' component={Profile} exact={true} />
     <Route path='/password' component={Password} />
     <Route path='/preference' component={Preference} />
   </Switch>
+  </div>
   </div>
   </BrowserRouter>
 );

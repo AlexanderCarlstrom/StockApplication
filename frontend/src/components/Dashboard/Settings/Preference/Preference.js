@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import './Preference.css';
-import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import '../Settings.css';
+import { Checkbox, TextField, Button } from '@material-ui/core';
+import { useForm } from "react-hook-form";
 
 
-const Preference = () => (
-            <div className='preference'>
-            <CheckBox />
-            </div>
-        );
+const Preference = () => {
+    return (
+        <div className='preference'>
+        <CheckBox />
+        </div>
+    )
+}
+
 
 const CheckBox = () => {
     const [state, setState] = useState({
@@ -18,20 +20,21 @@ const CheckBox = () => {
         optionC: true,
         optionD: true,
     });
+    const [option, setOptions] = useState([]);
 
     const handleChange = (e) => {
         setState({...state, [e.target.id]: e.target.checked });
     };
 
     return (
-        <div>
+        <div className='form-content'>
             <form onSubmit={(e) => handleChange()}>
                 <label>
                 Option 1
                 <Checkbox 
                     type='checkbox'
                     id='optionA'
-                    value={state.optionA}
+                    value={1}
                 />
                 </label>
                 <label>
@@ -39,7 +42,7 @@ const CheckBox = () => {
                 <Checkbox 
                     type='checkbox'
                     id='optionB'
-                    value={state.optionB}
+                    value={2}
                 />
                 </label>
                 <label>
@@ -47,7 +50,7 @@ const CheckBox = () => {
                 <Checkbox 
                     type='checkbox'
                     id='optionC'
-                    value={state.optionC}
+                    value={3}
                 />
                 </label>
                 <label>
@@ -55,7 +58,7 @@ const CheckBox = () => {
                 <Checkbox 
                     type='checkbox'
                     id='optionD'
-                    value={state.optionD}
+                    value={4}
                 />
                 </label>
                 <div>
@@ -67,5 +70,6 @@ const CheckBox = () => {
         </div>
     );
 };
+
 
 export default Preference;

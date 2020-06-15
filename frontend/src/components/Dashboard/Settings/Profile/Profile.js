@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import ReactDOM from 'react-dom';
 import { useForm } from 'react-hook-form';
+import { AppBar, TextField, Button, Typography, Link } from '@material-ui/core';
 import DefaultPic from "./defaultProfile.png";
-import './Profile.css';
-import Button from '@material-ui/core/Button';
+import '../Settings.css';
 import IconButton from '@material-ui/core/IconButton';
 import BrushIcon from '@material-ui/icons/Brush';
-
 
 
 const Profile = () => (
@@ -61,64 +60,72 @@ ProfileImage.defaultProps = {
   uploadedImage: {DefaultPic},
 };
 
+class ProfileForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: '',
+      firstName: '',
+      lastName: '',
+      securityNumber: '',
+      address: '',
+      city: '',
+      zip: '',
+      phoneNumber: '',
+      email: '',
+    }
 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
+  }
 
-const ProfileForm = (props) => {
-
-  const user = {
-    id: 1,
-    firstName: 'Hilda',
-    lastName: 'Olofsdotter',
-    securityNumber: 1111112222,
-    address: 'Halmstad 1',
-    city: 'Halmstad',
-    zip: 12345,
-    phoneNumber: 1245324578,
-    email: 'hilda.hilda@hilda.com',
+  handleSubmit = (e) => {
+    alert(JSON.stringify(e));
   };
 
-  const { handleSubmit, update, formState } = useForm({ user });
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-  };
+  handleChange = (e) => {
+    this.setState({firstName: e.target.value});
+    this.setState({lastName: e.target.value});
+  }
 
-  return (
-    <div className='form-class'>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor='firstName'>First name</label>
-      <input type='text' name='firstName' value={user.name} ref={update} />
-
-      <label htmlFor='lastName'>Last name</label>
-      <input type='text' name='lastName' ref={update} />
-
-      <label>Security number</label>
-      <input type='number' name='securityNumber' ref={update} />
-
-      <label>Address</label>
-      <input type='text' name='address' ref={update} />
-
-      <label>City</label>
-      <input type='text' name='city' ref={update} />
-
-      <label>Zip</label>
-      <input type='number' name='zip' ref={update} />
-
-      <label>Phone number</label>
-      <input type='number' name='phoneNumber' ref={update} />
-
-      <label>Email</label>
-      <input type='text' name='email' ref={update} />
-
-      <Button 
-          type='submit'
-          className='save'
-          
-          >Save</Button>
-    </form>
-    </div>
-  )
-
+  render() {
+    return (
+      <div className='form-content'>
+      <form>
+        <label>First name</label>
+        <TextField type='text' name='firstName' value={this.state.firstName} onChange={this.handleChange} />
+  
+        <label>Last name</label>
+        <TextField type='text' name='lastName' value={this.state.lastName} onChange={this.handleChange} />
+  
+        <label>Security number</label>
+        <TextField type='number' name='securityNumber' value={this.state.securityNumber} onChange={this.handleChange} />
+  
+        <label>Address</label>
+        <TextField type='text' name='address' value={this.state.address} onChange={this.handleChange} />
+  
+        <label>City</label>
+        <TextField type='text' name='city' value={this.state.city} onChange={this.handleChange} />
+  
+        <label>Zip</label>
+        <TextField type='number' name='zip' value={this.state.zip} onChange={this.handleChange} />
+  
+        <label>Phone number</label>
+        <TextField type='number' name='phoneNumber' value={this.state.phoneNumber} onChange={this.handleChange} />
+  
+        <label>Email</label>
+        <TextField type='text' name='email' value={this.state.email} onChange={this.handleChange} />
+  
+        <Button 
+            type='submit'
+            className='save'
+            onClick={this.handleSubmit}
+            >Save</Button>
+      </form>
+      </div>
+    )
+  }
 }
 
 export default Profile;

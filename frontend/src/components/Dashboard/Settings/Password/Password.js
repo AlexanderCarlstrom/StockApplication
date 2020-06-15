@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import "./Password.css";
+import "../Settings.css";
 import Button from "@material-ui/core/Button";
+import { TextField } from "@material-ui/core";
+import { useForm } from "react-hook-form";
 
 const Password = () => (
       <div className="password">
@@ -9,47 +11,40 @@ const Password = () => (
     );
 
 const PasswordForm = () => {
-  const [currentPassword, getCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const userData = {
+    currentPassword: '123',
+    newPassword: '',
+    confirmPassword: '',
+  }
 
+  const [currentPassword, getCurrentPassword] = useState(userData.currentPassword);
+  const [newPassword, setNewPassword] = useState(userData.newPassword);
+  const [confirmPassword, setConfirmPassword] = useState(userData.confirmPassword);
+
+  const handleSubmit = (data) => {
+    alert(JSON.stringify(data));
   };
 
   return (
-    <div className="password-form">
-      <form onSubmit={handleSubmit()}>
-        <label onSubmit={handleSubmit}>
-          Current password
-          <input
-            id="currentPassword"
-            type="text"
-            value={currentPassword}
-            onChange={(e) => getCurrentPassword(e.target.value)}
-          />
-        </label>
-        <br />
-        <label onSubmit={handleSubmit}>
-          New password
-          <input
-            id="newPassword"
-            type="number"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-        </label>
-        <br />
-        <label onSubmit={handleSubmit}>
-          Confirm new password
-          <input
-            id="confirmPassword"
-            type="text"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </label>
-        <Button type="submit" value="submit" className="save">
+    <div className="form-content">
+      <form>
+        <label>Current password</label>
+        <TextField type='text' name='currentPassword' value={currentPassword}
+          onChange={(e) => getCurrentPassword(e.target.value)} 
+        />
+
+        <label htmlFor='newPassword'>New password</label>
+        <TextField type='text' name='newPassword' value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)} 
+        />
+
+        <label htmlFor='confirmPassword'>Confirm new password</label>
+        <TextField type='text' name='confirmPassword' value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)} 
+        />
+        
+        <Button type="submit" value="submit" className="save" onClick={handleSubmit}>
           Save
         </Button>
       </form>
