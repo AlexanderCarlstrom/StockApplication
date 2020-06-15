@@ -10,27 +10,31 @@ class Home extends React.Component {
         "Industri 1",
         "Industri 2",
         "Industri 3",
-        "Industri 4"
+        "Industri 4",
       ],
       ownedShares: [
         { companyName: "Company 1", typeOfTrade: "Industri 1", value: 22222 },
         { companyName: "Company 2", typeOfTrade: "Industri 1", value: 133 },
-        { companyName: "Company 3", typeOfTrade: "Industri 2", value: 2274674222 },
+        {
+          companyName: "Company 3",
+          typeOfTrade: "Industri 2",
+          value: 2274674222,
+        },
         { companyName: "Company 4", typeOfTrade: "Industri 3", value: 1321231 },
         { companyName: "Company 5", typeOfTrade: "Industri 4", value: 65436 },
         { companyName: "Company 6", typeOfTrade: "Industri 4", value: 765745 },
         { companyName: "Company 7", typeOfTrade: "Industri 3", value: 7574 },
-        
+
         { companyName: "Company 7", typeOfTrade: "Industri 5", value: 7574 },
-        
+
         { companyName: "Company 7", typeOfTrade: "Industri 6", value: 7574 },
-        
+
         { companyName: "Company 7", typeOfTrade: "Industri 7", value: 7574 },
-        
+
         { companyName: "Company 7", typeOfTrade: "Industri 8", value: 7574 },
-        
+
         { companyName: "Company 7", typeOfTrade: "Industri 9", value: 7574 },
-        
+
         { companyName: "Company 7", typeOfTrade: "Industri 10", value: 7574 },
       ],
       profilePic:
@@ -49,12 +53,26 @@ class Home extends React.Component {
   };
   render() {
     return (
-      <div id="homePageContainerDiv">
-        <div id="leftDiv">
-          <MyProfile getUserData={this.retrieveUserData} />
+      <div id="homePageWrapper">
+        <h1 id="pageHeaderText">Home</h1>
+        <div id="welcomeMessage">
+          <p className="welcomeMessageText">Welcome </p>
+          <p className="welcomeMessageTextFromUserData">
+            {this.retrieveUserData().firstName}
+          </p>
+          <p className="welcomeMessageText">! Your holdings were last updated on </p>
+          <p className="welcomeMessageTextFromUserData">
+            {this.retrieveUserData().lastUpdate.toDateString()}
+          </p>
+          <p className="welcomeMessageText">. Go check it out!</p>
         </div>
-        <div id="rightDiv">
-          <MyShareholding getUserData={this.retrieveUserData} />
+        <div id="homePageContainerDiv">
+          <div id="leftDiv">
+            <MyProfile getUserData={this.retrieveUserData} />
+          </div>
+          <div id="rightDiv">
+            <MyShareholding getUserData={this.retrieveUserData} />
+          </div>
         </div>
       </div>
     );

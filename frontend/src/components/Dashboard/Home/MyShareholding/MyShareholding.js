@@ -60,14 +60,14 @@ class MyShareholding extends React.Component {
     return (
       <div>
         <div className="containerDiv" id="headerDiv">
-          My Holdings
+          <h3 className="componentHeaderText">My Holdings</h3>
           <Button variant="contained" color="primary" id="editProfileButton">
             My Portfolio
           </Button>
         </div>
-        <div>
+        <div id="lastUpdatedAndValue">
           <h1>{this.userData.totalValue + " SEK"}</h1>
-          <p>Last updated: {this.userData.lastUpdate.toDateString()}</p>
+          <p id="lastUpdatedText">Last updated: {this.userData.lastUpdate.toDateString()}</p>
         </div>
         <div id="barDiv">
           <ProgressBar>
@@ -85,7 +85,7 @@ class MyShareholding extends React.Component {
         </div>
         <div id="companySummaryDiv">
           {this.industryArray.map((industry, index) => (
-            <div className="industrySummaryDiv">
+            <div className="industrySummaryDiv" key={index + 1 * 40}>
               <div
                 key={index + 1 * 30}
                 className={"industry" + index.toString()}

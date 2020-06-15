@@ -7,7 +7,7 @@
     border: 1px solid black;
 }
 
-.bg-industry0{
+.bg-industry0 {
     background-color: blue !important;
 }
 
@@ -20,7 +20,7 @@
     border: 1px solid black;
 }
 
-.bg-industry1{
+.bg-industry1 {
     background-color: turquoise !important;
 }
 
@@ -33,7 +33,7 @@
     border: 1px solid black;
 }
 
-.bg-industry2{
+.bg-industry2 {
     background-color: yellow !important;
 }
 
@@ -46,7 +46,7 @@
     border: 1px solid black;
 }
 
-.bg-industry3{
+.bg-industry3 {
     background-color: green !important;
 }
 
@@ -55,12 +55,12 @@
     margin-right: 30px;
     width: 10px;
     height: 10px;
-    background-color: grey;
+    background-color: lime;
     border: 1px solid black;
 }
 
-.bg-industry4{
-    background-color: grey !important;
+.bg-industry4 {
+    background-color: lime !important;
 }
 
 .industry5 {
@@ -72,7 +72,7 @@
     border: 1px solid black;
 }
 
-.bg-industry5{
+.bg-industry5 {
     background-color: pink !important;
 }
 
@@ -85,7 +85,7 @@
     border: 1px solid black;
 }
 
-.bg-industry6{
+.bg-industry6 {
     background-color: purple !important;
 }
 
@@ -98,7 +98,7 @@
     border: 1px solid black;
 }
 
-.bg-industry7{
+.bg-industry7 {
     background-color: orange !important;
 }
 
@@ -111,7 +111,7 @@
     border: 1px solid black;
 }
 
-.bg-industry8{
+.bg-industry8 {
     background-color: teal !important;
 }
 
@@ -120,16 +120,27 @@
     margin-right: 30px;
     width: 10px;
     height: 10px;
-    background-color: darkcyan;
+    background-color: red;
     border: 1px solid black;
 }
 
-.bg-industry9{
-    background-color: darkcyan !important;
+.bg-industry9 {
+    background-color: red !important;
+}
+
+.companyText{
+    color:grey;
+    font-size: 14px;
+}
+
+#lastUpdatedAndValue {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #barDiv {
-    padding-bottom: 50px;
+    padding:25px 0px;
 }
 
 .industryText {
@@ -152,6 +163,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+#lastUpdatedText{
+    color:grey;
 }
 
 .valueText {

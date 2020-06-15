@@ -74,7 +74,8 @@ p {
     padding-right: 50%;
 }
 .contactInformationDiv{
-    padding:10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 

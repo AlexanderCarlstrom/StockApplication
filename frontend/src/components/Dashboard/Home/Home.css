@@ -12,7 +12,6 @@
     width: 55%;
     border: solid 1px black;
     border-radius: 10px;
-    height: 100%;
     float: right;
     box-sizing: border-box;
     margin-left: 1%;
@@ -26,4 +25,34 @@
     margin: 10px;
     display: flex;
     overflow: auto;
+}
+
+.componentHeaderText {
+    display: inline;
+}
+
+#pageHeaderText {
+    margin-left: 30px;
+}
+
+#welcomeMessage {
+    width:90%;
+    border:solid black 1px;
+    border-radius: 30px;
+    margin:0px 30px;
+    padding:30px;
+    box-sizing: content-box;
+    margin: 0 auto;
+}
+
+#welcomeMessage p {
+    display: inline;
+}
+
+.welcomeMessageTextFromUserData {
+    font-weight: 900;
+}
+
+#homePageWrapper{
+    width:100%;
 }

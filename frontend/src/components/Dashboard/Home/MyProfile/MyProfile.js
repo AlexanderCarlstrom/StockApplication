@@ -12,7 +12,7 @@ class MyProfile extends React.Component {
     return (
       <div>
         <div className="containerDiv" id="headerDiv">
-          My Profile
+          <h3 className="componentHeaderText">My Profile</h3>
           <Button variant="contained" color="primary" id="editProfileButton">
             Edit Profile
           </Button>
