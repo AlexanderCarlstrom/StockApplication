@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const userRoutes = require('./routes/user.routes');
 require('dotenv').config();
 const app = express();
 
@@ -26,5 +27,8 @@ app.use(function (req, res, next) {
   );
   next();
 });
+
+// define routes
+app.use('/user', userRoutes);
 
 app.listen(process.env.PORT, () => console.log('listening to port ' + process.env.PORT));

@@ -3,28 +3,23 @@ const Schema = mongoose.Schema;
 
 const stockSchema = new Schema({
   country: {
-    String,
+    type: String,
     required: true,
   },
   currency: {
-    String,
+    type: String,
     required: true,
   },
   name: {
-    String,
+    type: String,
     required: true,
   },
   amount: {
-    Number,
+    type: Number,
     required: true,
   },
 });
 
 stockSchema.set('timestamps', true);
-
-// stockSchema.methods.toJSON = () => {
-//   const stockObject = this.toObject();
-//   return
-// }
 
 module.exports = Stock = mongoose.model('Stock', stockSchema);
