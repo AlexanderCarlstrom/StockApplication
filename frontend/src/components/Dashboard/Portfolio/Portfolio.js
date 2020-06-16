@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Pagination from "@material-ui/lab/Pagination";
+import TablePagination from "@material-ui/core/TablePagination";
 
 const Portfolio = () => {
   const createCompanyObjects = () => {
     let arrayOfObjects = [];
     for (let i = 0; i < 350; i++) {
       let object = {
-        name: "Company "+i.toString(),
-        typeOfTrade:"Industry 1",
+        name: "Company " + i.toString(),
+        typeOfTrade: "Industry 1",
         ownedValue: 20000,
         type: "A",
         amount: 3000,
@@ -21,13 +21,35 @@ const Portfolio = () => {
   };
 
   const ownedCompanies = createCompanyObjects();
-  const [numberOfCompaniestoDisplay, updateNumberOfcompaniesToDisplay] = useState(10);
+  const [
+    numberOfCompaniesToDisplay,
+    updateNumberOfCompaniesToDisplay,
+  ] = useState(10);
   const [currentPageIndex, updateCurrentPageIndex] = useState(0);
-  const [displayedCompanies, updateDisplayedCompanies] = useState(ownedCompanies.slice(currentPageIndex,numberOfCompaniestoDisplay));
+
+  const handleChangePage = (e) => {};
+  const handleChangeRowsPerPage = (e) => {
+    updateNumberOfCompaniesToDisplay(e.target.value);
+  };
+
   return (
     <div>
-    {displayedCompanies.map(elem=><p>{elem.name}</p>)}
-      <Pagination count={10} />
+      {ownedCompanies
+        .slice(currentPageIndex, numberOfCompaniesToDisplay)
+        .map((elem, index) => (
+          <p key={elem + index.toString()}>{elem.name}</p>
+        ))}
+      {
+        <TablePagination
+          component="div"
+          count={ownedCompanies.length}
+          page={currentPageIndex}
+          onChangePage={handleChangePage}
+          rowsPerPage={numberOfCompaniesToDisplay}
+          rowsPerPageOptions={[10, 20, 30, 40, 50]}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      }
     </div>
   );
 };
