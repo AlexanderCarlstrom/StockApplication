@@ -14,6 +14,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
+      <div>{this.state.currentPage}</div>
         <ul>
           <li>
             <button
@@ -39,7 +40,7 @@ class App extends React.Component {
             </button>
           </li>
         </ul>
-        <div>{this.state.currentPage}</div>
+        
       </div>
     );
   }
