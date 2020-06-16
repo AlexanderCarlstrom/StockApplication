@@ -20,4 +20,11 @@ const stockSchema = new Schema({
   },
 });
 
+stockSchema.set('timestamps', true);
+
+// stockSchema.methods.toJSON = () => {
+//   const stockObject = this.toObject();
+//   return
+// }
+
 module.exports = Stock = mongoose.model('Stock', stockSchema);
