@@ -21,6 +21,10 @@ router.get('/login-with-id', expressJwt({ secret: process.env.SECRET }), (req, r
   loginWithId(req, res);
 });
 
+router.post('/change-password', expressJwt({ secret: process.env.SECRET }), (req, res) => {
+  changePassword(req, res);
+});
+
 // main methods
 async function register(req, res) {
   const firstname = req.body.firstname;
@@ -114,6 +118,41 @@ function loginWithId(req, res) {
       return res.status(401).send('user not found');
     } else {
       res.send(trimUser(user));
+    }
+  });
+}
+
+function changePassword(req, res) {
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+
+  if (!oldPassword || !newPassword) {
+    return res.status(400).send('invalid body');
+  }
+
+  User.findById(req.user.id, (err, user) => {
+    if (err) {
+      return res.sendStatus(400);
+    } else if (!user) {
+      return res.status(401).send('user not found');
+    } else {
+      bcrypt.compare(oldPassword, req.user.password, (result) => {
+        if (!result) {
+          res.status(401).send('invalid password');
+        } else {
+          bcrypt.hash(newPassword, 10, (err, hash) => {
+            if (err) {
+              console.log(err);
+            } else {
+              user.password = hash;
+              user
+                .save()
+                .then(() => res.send('password changed'))
+                .catch((err) => console.log(err));
+            }
+          });
+        }
+      });
     }
   });
 }
