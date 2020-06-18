@@ -1,8 +1,11 @@
+const expressJwt = require('express-jwt');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
+const _ = require('lodash');
+const { trim } = require('lodash');
 require('dotenv').config();
 
 // routes
@@ -12,6 +15,10 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
   login(req, res);
+});
+
+router.get('/login-with-id', expressJwt({ secret: process.env.SECRET }), (req, res) => {
+  loginWithId(req, res);
 });
 
 // main methods
@@ -86,7 +93,10 @@ function login(req, res) {
               if (err) {
                 console.log(err);
               } else {
-                res.send(token);
+                res.send({
+                  token: token,
+                  user: trimUser(user),
+                });
               }
             }
           );
@@ -94,6 +104,23 @@ function login(req, res) {
       });
     }
   });
+}
+
+function loginWithId(req, res) {
+  User.findById(req.user.id, (err, user) => {
+    if (err) {
+      return res.sendStatus(400);
+    } else if (!user) {
+      return res.status(401).send('user not found');
+    } else {
+      res.send(trimUser(user));
+    }
+  });
+}
+
+// helper methods
+function trimUser(user) {
+  return _.pick(user, ['stocks', 'firstname', 'lastname', 'identityNumber', 'address', 'zipCode', 'city', 'email']);
 }
 
 module.exports = router;
