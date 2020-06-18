@@ -33,6 +33,6 @@ app.use(function (req, res, next) {
 
 // define routes
 app.use('/auth', userRoutes);
-app.use('/data', stockRoutes);
+app.use('/stock', stockRoutes);
 
 app.listen(process.env.PORT, () => console.log('listening to port ' + process.env.PORT));

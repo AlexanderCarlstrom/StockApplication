@@ -12,6 +12,10 @@ router.post('/buy', expressJwt({ secret: process.env.SECRET }), (req, res) => {
   buyStock(req, res);
 });
 
+router.post('/sell', expressJwt({ secret: process.env.SECRET }), (req, res) => {
+  sellStock(req, res);
+});
+
 // main methods
 function buyStock(req, res) {
   const symbol = req.body.symbol;
@@ -21,13 +25,17 @@ function buyStock(req, res) {
     return res.status(400).send('invalid body');
   }
 
+  // find user with id from jwt token
   User.findById(req.user.id, (err, user) => {
     if (err) {
       console.log(err);
-      return res.status(400).send('User not found');
+      return res.sendStatus(400);
+    } else if (!user) {
+      return res.status(401).send('user not found');
     } else {
       // check if user already has stock
       const index = _.findIndex(user.stocks, (stock) => stock.symbol === symbol);
+      // if index is not -1 then user already have stock, otherwise create new stock and add it to user
       if (index !== -1) {
         const newAmount = user.stocks[index].amount + amount;
         user.stocks[index].amount = newAmount;
@@ -47,6 +55,46 @@ function buyStock(req, res) {
   });
 }
 
-// helper methods
+function sellStock(req, res) {
+  const symbol = req.body.symbol;
+  const amount = req.body.amount;
+
+  if (!symbol || !amount) {
+    return res.status(400).send('invalid body');
+  }
+
+  // find user with id from jwt token
+  User.findById(req.user.id, (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(400);
+    } else if (!user) {
+      return res.status(401).send('user not found');
+    } else {
+      // check if user already has stock
+      const index = _.findIndex(user.stocks, (stock) => stock.symbol === symbol);
+      // if index is not -1 then decrease amount by inputed number
+      if (index !== -1) {
+        const newAmount = user.stocks[index].amount - amount;
+        // if user tries to sell more stocks than they have, return error
+        if (newAmount < 0) {
+          return res.status(400).send('cannot sell more stocks than available');
+        }
+
+        // if new amount is 0 then remove stock from user
+        if (newAmount === 0) {
+          user.stocks.splice(index, 1);
+        } else {
+          user.stocks[index].amount = newAmount;
+        }
+        user.markModified('stocks');
+        user
+          .save()
+          .then(() => res.send(user))
+          .catch((e) => console.log(e));
+      }
+    }
+  });
+}
 
 module.exports = router;
