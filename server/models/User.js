@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const _ = require('lodash');
 const Stock = require('./Stock');
 const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
+const _ = require('lodash');
 
 const userSchema = new Schema({
   firstname: {
@@ -46,12 +46,5 @@ const userSchema = new Schema({
     type: [Stock.Stock],
   },
 });
-
-// return object without password and stocks
-userSchema.methods.toJSON = () => {
-  const user = this;
-  const userObject = user.toObject();
-  return _.omit(userObject, ['stocks', 'password']);
-};
 
 module.exports = User = mongoose.model('User', userSchema, 'users');

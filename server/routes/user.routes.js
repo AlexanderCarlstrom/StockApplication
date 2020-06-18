@@ -1,8 +1,8 @@
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const router = express.Router();
-const User = require('../models/User');
 require('dotenv').config();
 
 // routes
@@ -14,7 +14,7 @@ router.post('/login', (req, res) => {
   login(req, res);
 });
 
-// methods
+// main methods
 async function register(req, res) {
   const firstname = req.body.firstname;
   const lastname = req.body.lastname;
@@ -25,10 +25,15 @@ async function register(req, res) {
   const email = req.body.email;
   const password = req.body.password;
 
+  // check that all values exist
+  if (!firstname || !lastname || !idNumber || !address || !zip || !city || !email || !password) {
+    return res.status(400).send('invalid body');
+  }
+
   // check if email already exist in db
   User.findOne({ email: email }).then((user) => {
     if (user) {
-      return res.status(400).send('Email already exist');
+      return res.status(401).send('Email already exist');
     } else {
       // if email doesn't exist in db then hash password and save new user to db
       const hash = bcrypt.hashSync(password, 10);
@@ -54,6 +59,11 @@ async function register(req, res) {
 function login(req, res) {
   const email = req.body.email;
   const password = req.body.password;
+
+  // check that all values exist
+  if (!email || !password) {
+    return res.status(400).send('invalid body');
+  }
 
   // try to find user by email
   User.findOne({ email: email }).then((user) => {

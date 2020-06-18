@@ -1,9 +1,12 @@
-const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const userRoutes = require('./routes/user.routes');
+const express = require('express');
 require('dotenv').config();
 const app = express();
+
+// import routes
+const userRoutes = require('./routes/user.routes');
+const stockRoutes = require('./routes/stock.router');
 
 // connect to DB
 mongoose.connect(process.env.DB_HOST, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
@@ -29,6 +32,7 @@ app.use(function (req, res, next) {
 });
 
 // define routes
-app.use('/user', userRoutes);
+app.use('/auth', userRoutes);
+app.use('/data', stockRoutes);
 
 app.listen(process.env.PORT, () => console.log('listening to port ' + process.env.PORT));
