@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import ReactDOM from 'react-dom';
-import { useForm } from 'react-hook-form';
-import { AppBar, TextField, Button, Typography, Link } from '@material-ui/core';
+import React, { useState, useEffect } from "react";
+import { TextField, Button } from '@material-ui/core';
 import DefaultPic from "./defaultProfile.png";
 import '../Settings.css';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,8 +14,8 @@ const Profile = () => (
     );
 
 const ProfileImage = (props) => {
-  //const [image, setImage] = useState(props.DefaultPic);
-  const uploadedImage = React.useRef(props.DefaultPic);
+  //const [image, setImage] = useState(DefaultPic);
+  const uploadedImage = React.useRef(DefaultPic);
 
   const handleImageUpload = (e) => {
     const [file] = e.target.files;
@@ -33,12 +31,12 @@ const ProfileImage = (props) => {
   }
    
   return (
-    <div className="profileImg">
+    <div className="form-content">
+    <div className='profileImg'>
         <img 
           ref={uploadedImage} 
           width="100px" 
           className='uploadedImg' 
-          onError=''
         />
         <input 
           accept='image/*' 
@@ -52,6 +50,7 @@ const ProfileImage = (props) => {
             <BrushIcon />
           </IconButton>
         </label>
+        </div>
       </div>
   );
 };
@@ -75,53 +74,80 @@ const ProfileForm = (props) => {
     email: 'hilda.hilda@hilda.com',
   };
 
-  const [firstName, setFirstName] = useState(userFormData.firstName);
-  const [lastName, setLastName] = useState(userFormData.lastName);
-  const [securityNumber, setSecurityNumber] = useState(userFormData.securityNumber);
-  const [address, setAddress] = useState(userFormData.address);
-  const [city, setCity] = useState(userFormData.city);
-  const [zip, setZip] = useState(userFormData.zip);
-  const [phoneNumber, setPhoneNumber] = useState(userFormData.phoneNumber);
-  const [email, setEmail] = useState(userFormData.email);
-  const [userInfo, setUserInfo] = useState([]);
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [securityNumber, setSecurityNumber] = useState();
+  const [address, setAddress] = useState();
+  const [city, setCity] = useState();
+  const [zip, setZip] = useState();
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [email, setEmail] = useState();
+  const [userInfo, setUserInfo] = useState();
+
+  const handleChange = (e) => {
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: e.target.value.trim()
+    });
+  };
+
+  //Fetch i useeffect             
+  useEffect(() => {
+    console.log(userInfo);
+  },[userInfo]);
 
   const handleSubmit = (e) => {
-    console.log(JSON.stringify(e));
-    //const form = e.target;
-    //const data = new FormData(form);
-  }
-  
+    e.preventDefault()
+    setUserInfo({
+      firstName: firstName ? firstName : userFormData.firstName, 
+      lastName: lastName ? lastName : userFormData.lastName, 
+      securityNumber:securityNumber ? securityNumber : userFormData.securityNumber, 
+      address: address ? address : userFormData.address, 
+      city: city ? city : userFormData.city, 
+      zip: zip ? zip : userFormData.zip, 
+      phoneNumber: phoneNumber ? phoneNumber : userFormData.phoneNumber, 
+      email: email ? email : userFormData.email,
+    });
+
+
+    console.log(userInfo);
+  };
+
+
   return (
     <div className='form-content'>
-    <form>
-      <label>First name</label>
-      <TextField type='text' name='firstName' value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+    <form onSubmit={handleSubmit}>
+      <div className='form-line'>
+      <TextField  type='text' name='firstName' label='Firstname' defaultValue={userFormData.firstName} onChange={(e) => setFirstName(e.target.value)} />
+      </div>
 
-      <label>Last name</label>
-      <TextField type='text' name='lastName' value={lastName} onChange={(e) => setLastName(e.target.value)} />
+      <div className='form-line'>
+      <TextField label='Lastname' type='text' name='lastName' defaultValue={userFormData.lastName} onChange={(e) => setLastName(e.target.value)} />
+      </div>
 
-      <label>Security number</label>
-      <TextField type='number' name='securityNumber' value={securityNumber} onChange={(e) => setSecurityNumber(e.target.value)} />
+      <TextField label='Security number' type='number' name='securityNumber' defaultValue={userFormData.securityNumber} onChange={(e) => setSecurityNumber(e.target.value)} />
+      <br />
 
-      <label>Address</label>
-      <TextField type='text' name='address' value={address} onChange={(e) => setAddress(e.target.value)} />
+      <TextField label='Address' type='text' name='address' defaultValue={userFormData.address} onChange={(e) => setAddress(e.target.value)} />
+      <br />
 
-      <label>City</label>
-      <TextField type='text' name='city' value={city} onChange={(e) => setCity(e.target.value)} />
+      <div className='form-line'>
+      <TextField label='City' type='text' name='city' defaultValue={userFormData.city} onChange={(e) => setCity(e.target.value)} />
+      </div>
 
-      <label>Zip</label>
-      <TextField type='number' name='zip' value={zip} onChange={(e) => setZip(e.target.value)} />
+      <div className='form-line'>
+      <TextField label='Zip' type='number' name='zip' defaultValue={userFormData.zip} onChange={(e) => setZip(e.target.value)} />
+      </div>
 
-      <label>Phone number</label>
-      <TextField type='number' name='phoneNumber' value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+      <TextField label='Phone number' type='number' name='phoneNumber' defaultValue={userFormData.phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+      <br />
 
-      <label>Email</label>
-      <TextField type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+      <TextField label='Email' type='email' name='email' defaultValue={userFormData.email} onChange={(e) => setEmail(e.target.value)} />
+      <br />
 
       <Button 
           type='submit'
           className='save'
-          onClick={handleSubmit}
           >Save</Button>
     </form>
     </div>

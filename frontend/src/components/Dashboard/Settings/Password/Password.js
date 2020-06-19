@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../Settings.css";
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
-import { useForm } from "react-hook-form";
 
 const Password = () => (
       <div className="password">
@@ -13,34 +12,38 @@ const Password = () => (
 const PasswordForm = () => {
 
   const userData = {
-    currentPassword: '123',
+    currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   }
 
-  const [currentPassword, getCurrentPassword] = useState(userData.currentPassword);
-  const [newPassword, setNewPassword] = useState(userData.newPassword);
-  const [confirmPassword, setConfirmPassword] = useState(userData.confirmPassword);
+  const [currentPassword, getCurrentPassword] = useState();
+  const [newPassword, setNewPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+  const [userPassword, setUserPassword] = useState();
 
-  const handleSubmit = (data) => {
-    alert(JSON.stringify(data));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setUserPassword({
+      currentPassword: currentPassword ? currentPassword : userData.currentPassword,
+      newPassword: newPassword ? newPassword : userData.newPassword,
+      confirmPassword: confirmPassword ? confirmPassword : userData.confirmPassword, 
+    });
+    console.log(userPassword);
   };
 
   return (
     <div className="form-content">
       <form>
-        <label>Current password</label>
-        <TextField type='text' name='currentPassword' value={currentPassword}
+        <TextField label='Current password' type='password' name='currentPassword' defaultValue={userData.currentPassword}
           onChange={(e) => getCurrentPassword(e.target.value)} 
-        />
+        /><br />
 
-        <label htmlFor='newPassword'>New password</label>
-        <TextField type='text' name='newPassword' value={newPassword}
+        <TextField label='New password' type='password' name='newPassword' defaultValue={userData.newPassword}
           onChange={(e) => setNewPassword(e.target.value)} 
-        />
+        /><br />
 
-        <label htmlFor='confirmPassword'>Confirm new password</label>
-        <TextField type='text' name='confirmPassword' value={confirmPassword}
+        <TextField label='Confirm new password' type='password' name='confirmPassword' defaultValue={userData.confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)} 
         />
         

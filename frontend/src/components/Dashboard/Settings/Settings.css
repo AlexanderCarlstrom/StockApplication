@@ -6,9 +6,8 @@
     width: 600px;
     padding: 30px;
     margin: auto;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(168, 168, 168);
+    margin-bottom: 30px;
+    border-bottom: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     background-color: rgb(250, 250, 250);
 }
@@ -27,16 +26,12 @@ h1 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   position: relative;
   padding: 30px;
-  margin-top: 10px;
   margin: auto;
 }
 
 .profileImg {
-  width: 610px;
   position: relative;
   margin: auto;
-  left: 20%;
-  padding: 20px;
   margin-top: 10px;
   display: inline-flex;
 }
@@ -52,8 +47,14 @@ h1 {
   justify-content: space-between;
 }
 
-input, label {
-  display: block;
+label {
+  font-size: 10px;
+  margin-top: 10px;
+}
+
+.form-line {
+  float: left;
+  width: 270px;
 }
 
 .inputBtn {

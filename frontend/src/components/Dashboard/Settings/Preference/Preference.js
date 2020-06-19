@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../Settings.css';
-import { Checkbox, TextField, Button } from '@material-ui/core';
-import { useForm } from "react-hook-form";
+import { Checkbox, FormControlLabel, FormGroup, TextField, Button } from '@material-ui/core';
 
 
 const Preference = () => {
@@ -12,44 +11,56 @@ const Preference = () => {
     )
 }
 
-const CheckBox = ({value, isClicked}) => {
+const CheckBox = ({value, isClicked, checked}) => {
     return (
         <label>
-            {value}
             <Checkbox
-                onClick={isClicked}
+                onChange={isClicked}
+                checked={checked}
             />
+            {value}
         </label>
     )
 }
 
-const CheckBoxForm = (props) => {
+const CheckBoxForm = () => {
 
-    const options = 'Brödrost Industri Skog Slev Kastrull'.split(' ');
+    const options = [{name: "Finans", clicked:true},{name:"Trees", clicked:true},{name:"Industri", clicked:false}];
+    
+    const [selectedOptions, setSelectedOptions] = useState(options);
 
     const GenerateCheckBox = () => {
-        return options.map((option, index) => (
+        return selectedOptions.map((option, index) => (
             <CheckBox key={index}
                 isClicked={() => checked(index)}
-                value={option}
+                checked={option.clicked}
+                value={option.name}
             />
         ));
     };
 
     const checked = (index) => {
+        let optionsArr = [...selectedOptions];
+        optionsArr[index].clicked = !optionsArr[index].clicked;
+        setSelectedOptions(optionsArr);
 
+        console.log(optionsArr);
+    }
+
+    const handleSubmit= (e) => {
+        
     }
 
     return (
         <div className='form-content'>
-            <form>
+            <FormGroup onSubmit={handleSubmit}>
             <GenerateCheckBox />
             <div>
             <Button type="submit" value="submit" className="save">
             Save
             </Button>
             </div>
-            </form>
+            </FormGroup>
         </div>
     )
 
