@@ -32,49 +32,49 @@ class Login extends React.Component {
   };
 
   validForm = () => {
-    return this.state.email.length < 5 || this.state.password.length < 6;
+    return this.state.email.length > 0 || this.state.password.length > 0;
   };
 
   render() {
     return (
       <div>
-        <AppBar color="primary" className="auth-header">
-          <Typography variant="h5">LOGIN</Typography>
+        <AppBar color='primary' className='auth-header'>
+          <Typography variant='h5'>LOGIN</Typography>
         </AppBar>
-        <form id="login" onSubmit={this.onSubmit}>
+        <form id='login' onSubmit={this.onSubmit}>
           <TextField
-            id="email"
-            className="form-input"
-            type="email"
-            label="Email"
-            variant="outlined"
+            id='email'
+            className='form-input'
+            type='email'
+            label='Email'
+            variant='outlined'
             onChange={this.onEmailChange}
             fullWidth
             required
           />
           <TextField
-            id="password"
-            className="form-input"
-            type="password"
-            label="Password"
-            variant="outlined"
+            id='password'
+            className='form-input'
+            type='password'
+            label='Password'
+            variant='outlined'
             onChange={this.onPasswordChange}
             fullWidth
             required
           />
-          <div className="form-footer">
+          <div className='form-footer'>
             <Button
-              variant="contained"
-              color="primary"
-              className="form-btn"
+              variant='contained'
+              color='primary'
+              className='form-btn'
               onClick={this.handleSubmit}
-              disabled={this.validForm()}
-              size="large"
+              disabled={!this.validForm()}
+              size='large'
             >
               Submit
             </Button>
             <Typography>
-              <Link onClick={this.props.toggle} className="toggle-form">
+              <Link onClick={this.props.toggle} className='toggle-form'>
                 Create Account
               </Link>
             </Typography>

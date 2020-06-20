@@ -23,25 +23,28 @@ class AuthPage extends React.Component {
   showLoginForm = () => {
     this.setState({
       currentPage: this.login,
+      login: true,
     });
   };
 
   showRegisterForm = () => {
     this.setState({
       currentPage: this.register,
+      login: false,
     });
-    console.log('hello');
   };
 
   render() {
     return (
-      <div id="auth-page">
-        <AppBar position="static">
+      <div id='auth-page'>
+        <AppBar position='static'>
           <Toolbar>
-            <Typography variant="h6">Stock Application</Typography>
+            <Typography variant='h6'>Stock Application</Typography>
           </Toolbar>
         </AppBar>
-        <div className="auth-form">{this.state.currentPage}</div>
+        <div className={this.state.login ? ' auth-form login-form' : ' auth-form register-form'}>
+          {this.state.currentPage}
+        </div>
       </div>
     );
   }
