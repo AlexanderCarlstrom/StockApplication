@@ -1,11 +1,8 @@
 body {
     background-color: rgba(255, 255, 255, 0.555);
 }
-img {
-    width: 200px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-    margin-top: 20px;
+h1 {
+    color: white;
 }
 .is-active {
     background-color: '#d7d7d7';

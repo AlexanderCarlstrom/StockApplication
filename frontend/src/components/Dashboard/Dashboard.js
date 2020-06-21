@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch, Link, NavLink } from "react-router-dom";
 import { Button, Grid, withStyles } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import "./Dashboard.css";
-import Logo from "./StockSavers.png";
 import Home from "./Home/Home";
 import Settings from "./Settings/Settings";
 import Portfolio from "./Portfolio/Portfolio";
@@ -32,7 +31,7 @@ const Dashboard = () => (
 const NavigationBar = () => (
   <div>
     <div>
-      <img src={Logo} />
+      <h1>Stock Application</h1>
     </div>
     <div className="nav-links">
       <NavLink
