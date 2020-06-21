@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { TextField, Button } from '@material-ui/core';
+import React, { useState, useEffect, useRef } from "react";
+import { TextField, Button, Avatar, Badge } from '@material-ui/core';
 import DefaultPic from "./defaultProfile.png";
 import '../Settings.css';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,7 +13,7 @@ const Profile = () => (
       </div>
     );
 
-const ProfileImage = (props) => {
+const ProfileImage = () => {
   //const [image, setImage] = useState(DefaultPic);
   const uploadedImage = React.useRef(DefaultPic);
 
@@ -28,7 +28,7 @@ const ProfileImage = (props) => {
       }
       reader.readAsDataURL(file);
     }
-  }
+  };
    
   return (
     <div className="form-content">
@@ -36,17 +36,24 @@ const ProfileImage = (props) => {
         <img 
           ref={uploadedImage} 
           width="100px" 
-          className='uploadedImg' 
+          style={{ borderRadius: 50 }}
         />
         <input 
           accept='image/*' 
           className='inputBtn' 
           id='button-file' 
           type='file' 
+          style={{ display: 'none '}}
           onChange={handleImageUpload}
         />
-        <label htmlFor='button-file'>
-          <IconButton aria-label='upload image' component='span'>
+        <label 
+          style={{ marginTop: 40 }}
+          htmlFor='button-file'
+          >
+          <IconButton 
+            aria-label='upload image' 
+            component='span'
+          >
             <BrushIcon />
           </IconButton>
         </label>
@@ -55,12 +62,7 @@ const ProfileImage = (props) => {
   );
 };
 
-ProfileImage.defaultProps = {
-  uploadedImage: DefaultPic,
-};
-
-
-const ProfileForm = (props) => {
+const ProfileForm = () => {
 
   const userFormData = {
     id: 1,
@@ -153,7 +155,6 @@ const ProfileForm = (props) => {
     </div>
   );
 };
-
 
 
 export default Profile;
