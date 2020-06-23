@@ -1,0 +1,104 @@
+#editProfileButton {
+    float: right;
+}
+
+#headerDiv {
+    border-bottom: 1px solid grey;
+    overflow: auto;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+#profileDiv {
+    display: flex;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+p {
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#profileText {
+    padding-bottom: 10px;
+    font-size: 26px;
+}
+
+#industryCollection {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.industryItem {
+    box-sizing: border-box;
+    padding: 10px;
+    float: left;
+    width: 50%;
+    height: 50%;
+}
+
+.headerText {
+    color: grey;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+#preferredIndustriesText {
+    font-size: 18px;
+}
+
+#preferredIndustriesDiv {
+    padding-left: 20px;
+}
+
+#personalInformationDiv {
+    padding-left: 60px;
+}
+
+.contactInformationHeader {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    flex-basis:0;
+    flex: 1 1 0px
+}
+
+#contactInformationSectionHeader {
+    padding: 20px;
+    font-size: 24px;
+}
+
+.contactInformation {
+    color: grey;
+    float: right;
+    flex-basis:0;
+    flex: 1 1 0px
+}
+
+.contactInformationDiv {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#profilePicture {
+    min-width: 100%;
+    min-height: 100%;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    margin-right: 50px;
+}
+
+#imageContainer {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
