@@ -35,4 +35,5 @@ app.use(function (req, res, next) {
 app.use('/user', userRoutes);
 app.use('/stock', stockRoutes);
 
-app.listen(process.env.PORT, () => console.log('listening to port ' + process.env.PORT));
+const port = 3000;
+app.listen(port, () => console.log('listening to port ' + port));
