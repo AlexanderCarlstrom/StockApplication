@@ -1,0 +1,176 @@
+.industry0 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    border: 1px solid black;
+}
+
+.bg-industry0 {
+    background-color: blue !important;
+}
+
+.industry1 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: turquoise;
+    border: 1px solid black;
+}
+
+.bg-industry1 {
+    background-color: turquoise !important;
+}
+
+.industry2 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+    border: 1px solid black;
+}
+
+.bg-industry2 {
+    background-color: yellow !important;
+}
+
+.industry3 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border: 1px solid black;
+}
+
+.bg-industry3 {
+    background-color: green !important;
+}
+
+.industry4 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: lime;
+    border: 1px solid black;
+}
+
+.bg-industry4 {
+    background-color: lime !important;
+}
+
+.industry5 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: pink;
+    border: 1px solid black;
+}
+
+.bg-industry5 {
+    background-color: pink !important;
+}
+
+.industry6 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: purple;
+    border: 1px solid black;
+}
+
+.bg-industry6 {
+    background-color: purple !important;
+}
+
+.industry7 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: orange;
+    border: 1px solid black;
+}
+
+.bg-industry7 {
+    background-color: orange !important;
+}
+
+.industry8 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: teal;
+    border: 1px solid black;
+}
+
+.bg-industry8 {
+    background-color: teal !important;
+}
+
+.industry9 {
+    display: inline-block;
+    margin-right: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border: 1px solid black;
+}
+
+.bg-industry9 {
+    background-color: red !important;
+}
+
+.companyText{
+    color:grey;
+    font-size: 14px;
+}
+
+#lastUpdatedAndValue {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#barDiv {
+    padding:25px 0px;
+}
+
+.industryText {
+    display: block;
+}
+
+.companyText {
+    display: block;
+}
+
+.companyIndustryDiv {
+    margin: auto;
+    display: block;
+    padding: 10px;
+    width: 50%;
+    float: left;
+}
+
+.industrySummaryDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#lastUpdatedText{
+    color:grey;
+}
+
+.valueText {
+    display: block;
+    float: right;
+    width: 25%;
+}

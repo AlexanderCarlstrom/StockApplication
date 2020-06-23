@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Link } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import Login from './Login';
 import Register from './Register';
 import React from 'react';
