@@ -57,6 +57,7 @@ const Portfolio = () => {
 
   return (
     <div id="tableWrapper">
+    <h1>My Portfolio</h1>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
