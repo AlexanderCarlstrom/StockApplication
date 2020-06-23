@@ -14,7 +14,6 @@ class MyShareholding extends React.Component {
     this.industryArray = this.industries();
   }
 
-  tempVariants = ["success", "info", "warning", "danger"];
   industries = () => {
     let industryArray = [];
     this.userData.ownedShares.forEach((ownedShare) => {
@@ -56,6 +55,23 @@ class MyShareholding extends React.Component {
     industryCompanies.forEach((company) => (totalValue += company.value));
     return totalValue;
   };
+
+  getTotalAssetsValue = () => {
+    let totalValue=0;
+    this.userData.ownedShares.map(share=>totalValue+=share.value);
+    totalValue = this.numberFormatFix(totalValue);
+    return totalValue.toString();
+  }
+
+  numberFormatFix = (number) =>{
+    number = number.toLocaleString(
+      undefined, // leave undefined to use the browser's locale,
+                 // or use a string like 'en-US' to override it.
+      { minimumFractionDigits: 0 }
+    );
+    return number.toString();
+  }
+
   render() {
     return (
       <div>
@@ -66,7 +82,7 @@ class MyShareholding extends React.Component {
           </Button>
         </div>
         <div id="lastUpdatedAndValue">
-          <h1>{this.userData.totalValue + " SEK"}</h1>
+          <h1>{this.getTotalAssetsValue()} SEK</h1>
           <p id="lastUpdatedText">Last updated: {this.userData.lastUpdate.toDateString()}</p>
         </div>
         <div id="barDiv">
@@ -99,7 +115,7 @@ class MyShareholding extends React.Component {
                 </p>
               </div>
               <p key={index + 1 * 20} className="valueText">
-                {this.getTotalIndustryValue(industry)} SEK
+                {this.numberFormatFix(this.getTotalIndustryValue(industry))} SEK
               </p>
             </div>
           ))}

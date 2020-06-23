@@ -18,11 +18,13 @@ class MyProfile extends React.Component {
           </Button>
         </div>
         <div className="containerDiv" id="profileDiv">
+        <div id="imageContainer">
           <img
             src={this.userData.profilePic}
             id="profilePicture"
             alt="Profile"
           />
+          </div>
           <div id="personalInformationDiv">
             <p id="profileText">
               {this.userData.firstName} {this.userData.lastName}

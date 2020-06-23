@@ -60,7 +60,9 @@ class Home extends React.Component {
           <p className="welcomeMessageTextFromUserData">
             {this.retrieveUserData().firstName}
           </p>
-          <p className="welcomeMessageText">! Your holdings were last updated on </p>
+          <p className="welcomeMessageText">
+            ! Your holdings were last updated on{" "}
+          </p>
           <p className="welcomeMessageTextFromUserData">
             {this.retrieveUserData().lastUpdate.toDateString()}
           </p>
