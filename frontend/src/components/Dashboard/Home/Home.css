@@ -1,5 +1,4 @@
 #leftDiv {
-    width: 45%;
     background-color: rgb(250, 250, 250);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     float: left;
@@ -9,7 +8,6 @@
 }
 
 #rightDiv {
-    width: 55%;
     background-color: rgb(250, 250, 250);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     float: right;
@@ -17,7 +15,6 @@
     margin-left: 1%;
     flex: 1;
     padding: 1em;
-    height: 100%;
 }
 
 #homePageContainerDiv {
