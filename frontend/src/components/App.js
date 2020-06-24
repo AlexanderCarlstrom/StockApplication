@@ -1,25 +1,41 @@
-import Dashboard from './Dashboard/Dashboard';
-import Auth from './Auth/Auth';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// packages
 import React from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+
 import './App.css';
 
+// components
+import Dashboard from './Dashboard/Dashboard';
+import Auth from './Auth/Auth';
+import ProtectedRoute from './ProtectedRoute';
+import UserConsumer from '../logic/UserConsumer';
+
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      currentPage: <Auth />,
-    };
+  history = createBrowserHistory();
+
+  componentDidMount() {
+    if (!this.props.isLoggedIn) {
+      const token = JSON.parse(localStorage.getItem('user-token'));
+      if (token) {
+        this.props.actions.onLoginWithId(token).then((result) => {
+          if (result) {
+            console.log(result);
+            this.history.push('/dashboard');
+          }
+        });
+      }
+    }
   }
 
   render() {
     return (
       <div className="app">
         <div>
-          <Router>
+          <Router history={this.history}>
             <Switch>
               <Route exact path="/" component={Auth} />
-              <Route exact path="/dashboard" component={Dashboard} />
+              <ProtectedRoute path="/dashboard" component={Dashboard} />
             </Switch>
           </Router>
         </div>
@@ -28,4 +44,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default UserConsumer(App);

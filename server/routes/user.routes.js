@@ -10,18 +10,22 @@ require('dotenv').config();
 
 // routes
 router.post('/register', (req, res) => {
+  console.log('register');
   register(req, res);
 });
 
 router.post('/login', (req, res) => {
+  console.log('login');
   login(req, res);
 });
 
 router.get('/login-with-id', expressJwt({ secret: process.env.SECRET }), (req, res) => {
+  console.log('login with id');
   loginWithId(req, res);
 });
 
 router.post('/change-password', expressJwt({ secret: process.env.SECRET }), (req, res) => {
+  console.log('change password');
   changePassword(req, res);
 });
 
@@ -73,18 +77,27 @@ function login(req, res) {
 
   // check that all values exist
   if (!email || !password) {
-    return res.status(400).send('invalid body');
+    return res.send({
+      success: false,
+      message: 'invalid body',
+    });
   }
 
   // try to find user by email
   User.findOne({ email: email }).then((user) => {
     if (!user) {
-      return res.status(401).send('Email not found');
+      return res.send({
+        success: false,
+        message: 'email not found',
+      });
     } else {
       // compare password from user input and password hash in db
       bcrypt.compare(password, user.password).then((result) => {
         if (!result) {
-          return res.status(401).send('Invalid password');
+          return res.send({
+            success: false,
+            message: 'invalid password',
+          });
         } else {
           // if email exist in db create a jwt with user id and return to user
           jwt.sign(
@@ -98,6 +111,7 @@ function login(req, res) {
                 console.log(err);
               } else {
                 res.send({
+                  success: true,
                   token: token,
                   user: trimUser(user),
                 });
@@ -113,11 +127,20 @@ function login(req, res) {
 function loginWithId(req, res) {
   User.findById(req.user.id, (err, user) => {
     if (err) {
-      return res.sendStatus(400);
+      return res.send({
+        success: false,
+        message: err,
+      });
     } else if (!user) {
-      return res.status(401).send('user not found');
+      return res.send({
+        success: false,
+        message: 'user not found',
+      });
     } else {
-      res.send(trimUser(user));
+      res.send({
+        success: true,
+        user: trimUser(user),
+      });
     }
   });
 }

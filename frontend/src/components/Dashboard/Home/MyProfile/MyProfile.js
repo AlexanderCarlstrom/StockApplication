@@ -1,11 +1,13 @@
-import React from "react";
-import { Button } from "@material-ui/core";
-import "./MyProfile.css";
+import React from 'react';
+import { Button } from '@material-ui/core';
+import UserConsumer from '../../../../logic/UserConsumer';
+import './MyProfile.css';
 
 class MyProfile extends React.Component {
   constructor(props) {
     super(props);
     this.userData = this.props.getUserData();
+    this.user = props.user;
   }
 
   render() {
@@ -18,21 +20,15 @@ class MyProfile extends React.Component {
           </Button>
         </div>
         <div className="containerDiv" id="profileDiv">
-        <div id="imageContainer">
-          <img
-            src={this.userData.profilePic}
-            id="profilePicture"
-            alt="Profile"
-          />
+          <div id="imageContainer">
+            <img src={this.userData.profilePic} id="profilePicture" alt="Profile" />
           </div>
           <div id="personalInformationDiv">
             <p id="profileText">
-              {this.userData.firstName} {this.userData.lastName}
+              {this.user.firstname} {this.user.lastname}
             </p>
-            <p className="headerText">
-              Social Security Number/Organisation Number
-            </p>
-            <p>{this.userData.idenficationNumber}</p>
+            <p className="headerText">Social Security Number/Organisation Number</p>
+            <p>{this.user.identityNumber}</p>
           </div>
         </div>
         <div className="containerDiv" id="preferredIndustriesDiv">
@@ -49,25 +45,25 @@ class MyProfile extends React.Component {
         </div>
         <div className="containerDiv">
           <p id="contactInformationSectionHeader">Contact information</p>
-          <div className="contactInformationDiv">
+          {/* <div className="contactInformationDiv">
             <p className="contactInformationHeader">Phone Number:</p>
             <p className="contactInformation">{this.userData.phoneNumber}</p>
-          </div>
+          </div> */}
           <div className="contactInformationDiv">
-            <p className="contactInformationHeader">Mail:</p>
-            <p className="contactInformation">{this.userData.mail}</p>
+            <p className="contactInformationHeader">E-mail:</p>
+            <p className="contactInformation">{this.user.email}</p>
           </div>
           <div className="contactInformationDiv">
             <p className="contactInformationHeader">Adress:</p>
-            <p className="contactInformation">{this.userData.adress}</p>
+            <p className="contactInformation">{this.user.address}</p>
           </div>
           <div className="contactInformationDiv">
             <p className="contactInformationHeader">Zip Code:</p>
-            <p className="contactInformation"> {this.userData.zipCode}</p>
+            <p className="contactInformation"> {this.user.zipCode}</p>
           </div>
           <div className="contactInformationDiv">
             <p className="contactInformationHeader">City:</p>
-            <p className="contactInformation">{this.userData.city}</p>
+            <p className="contactInformation">{this.user.city}</p>
           </div>
         </div>
       </div>
@@ -75,4 +71,4 @@ class MyProfile extends React.Component {
   }
 }
 
-export default MyProfile;
+export default UserConsumer(MyProfile);

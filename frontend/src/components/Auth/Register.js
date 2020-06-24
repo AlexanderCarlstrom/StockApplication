@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppBar, TextField, Button, Typography, Link, Tooltip } from '@material-ui/core';
-import AuthService from '../../services/AuthService';
 
 class Register extends React.Component {
   constructor() {
@@ -36,8 +35,6 @@ class Register extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const result = AuthService.register(this.state.email, this.state.password);
-    console.log(result.message);
   };
 
   handleChange = (e) => {
@@ -171,19 +168,19 @@ class Register extends React.Component {
   render() {
     return (
       <div>
-        <AppBar color='primary' className='auth-header'>
-          <Typography variant='h5'>Register</Typography>
+        <AppBar color="primary" className="auth-header">
+          <Typography variant="h5">Register</Typography>
         </AppBar>
-        <form id='register' onSubmit={this.onSubmit}>
-          <div className='inputs'>
+        <form id="register" onSubmit={this.onSubmit}>
+          <div className="inputs">
             {/* firstname */}
             <TextField
-              id='firstname'
-              name='firstname'
-              className='form-input'
-              type='text'
-              label='Firstname'
-              variant='outlined'
+              id="firstname"
+              name="firstname"
+              className="form-input"
+              type="text"
+              label="Firstname"
+              variant="outlined"
               error={this.state.errors.firstname !== ''}
               helperText={this.state.errors.firstname}
               onChange={this.handleChange}
@@ -191,12 +188,12 @@ class Register extends React.Component {
             />
             {/* lastname */}
             <TextField
-              id='lastname'
-              name='lastname'
-              className='form-input'
-              type='text'
-              label='Lastname'
-              variant='outlined'
+              id="lastname"
+              name="lastname"
+              className="form-input"
+              type="text"
+              label="Lastname"
+              variant="outlined"
               error={this.state.errors.lastname !== ''}
               helperText={this.state.errors.lastname}
               onChange={this.handleChange}
@@ -204,13 +201,13 @@ class Register extends React.Component {
             />
             {/* identity number */}
             <TextField
-              id='identity-number'
-              name='identity number'
-              className='form-input'
-              type='text'
-              label='Identity Number'
-              placeholder='XXXXXXXX-YYYY'
-              variant='outlined'
+              id="identity-number"
+              name="identity number"
+              className="form-input"
+              type="text"
+              label="Identity Number"
+              placeholder="XXXXXXXX-YYYY"
+              variant="outlined"
               error={this.state.errors.identityNumber !== ''}
               helperText={this.state.errors.identityNumber}
               onChange={this.handleChange}
@@ -218,12 +215,12 @@ class Register extends React.Component {
             />
             {/* address */}
             <TextField
-              id='address'
-              name='address'
-              className='form-input'
-              type='text'
-              label='Address'
-              variant='outlined'
+              id="address"
+              name="address"
+              className="form-input"
+              type="text"
+              label="Address"
+              variant="outlined"
               error={this.state.errors.address !== ''}
               helperText={this.state.errors.address}
               onChange={this.handleChange}
@@ -231,12 +228,12 @@ class Register extends React.Component {
             />
             {/* zip code */}
             <TextField
-              id='zip-code'
-              name='zip code'
-              className='form-input'
-              type='text'
-              label='Zip Code'
-              variant='outlined'
+              id="zip-code"
+              name="zip code"
+              className="form-input"
+              type="text"
+              label="Zip Code"
+              variant="outlined"
               error={this.state.errors.zipCode !== ''}
               helperText={this.state.errors.zipCode}
               onChange={this.handleChange}
@@ -244,12 +241,12 @@ class Register extends React.Component {
             />
             {/* city */}
             <TextField
-              id='city'
-              name='city'
-              className='form-input'
-              type='text'
-              label='City'
-              variant='outlined'
+              id="city"
+              name="city"
+              className="form-input"
+              type="text"
+              label="City"
+              variant="outlined"
               error={this.state.errors.city !== ''}
               helperText={this.state.errors.city}
               onChange={this.handleChange}
@@ -257,12 +254,12 @@ class Register extends React.Component {
             />
             {/* email */}
             <TextField
-              id='email'
-              name='email'
-              className='form-input'
-              type='email'
-              label='Email'
-              variant='outlined'
+              id="email"
+              name="email"
+              className="form-input"
+              type="email"
+              label="Email"
+              variant="outlined"
               error={this.state.errors.email !== ''}
               helperText={this.state.errors.email}
               onChange={this.handleChange}
@@ -272,8 +269,8 @@ class Register extends React.Component {
             <Tooltip
               title={
                 <React.Fragment>
-                  <Typography variant='subtitle2'>{'Password Must Contain:'}</Typography>
-                  <Typography variant='body2'>
+                  <Typography variant="subtitle2">{'Password Must Contain:'}</Typography>
+                  <Typography variant="body2">
                     <ul>
                       <li>{'6 characters'}</li>
                       <li>{'one uppercase character'}</li>
@@ -282,23 +279,23 @@ class Register extends React.Component {
                       <li>{'one special character'}</li>
                     </ul>
                   </Typography>
-                  <Typography variant='body2'></Typography>
-                  <Typography variant='body2'></Typography>
-                  <Typography variant='body2'></Typography>
-                  <Typography variant='body2'></Typography>
+                  <Typography variant="body2"></Typography>
+                  <Typography variant="body2"></Typography>
+                  <Typography variant="body2"></Typography>
+                  <Typography variant="body2"></Typography>
                 </React.Fragment>
               }
-              placement='bottom'
+              placement="bottom"
               disableHoverListener
               arrow
             >
               <TextField
-                id='password'
-                name='password'
-                className='form-input'
-                type='password'
-                label='Password'
-                variant='outlined'
+                id="password"
+                name="password"
+                className="form-input"
+                type="password"
+                label="Password"
+                variant="outlined"
                 error={this.state.errors.password !== ''}
                 helperText={this.state.errors.password}
                 onChange={this.handleChange}
@@ -307,31 +304,31 @@ class Register extends React.Component {
             </Tooltip>
             {/* repeat password */}
             <TextField
-              id='repeat-password'
-              name='repeat password'
-              className='form-input'
-              type='password'
-              label='Repeat Password'
-              variant='outlined'
+              id="repeat-password"
+              name="repeat password"
+              className="form-input"
+              type="password"
+              label="Repeat Password"
+              variant="outlined"
               error={this.state.errors.repeatPassword !== ''}
               helperText={this.state.errors.repeatPassword}
               onChange={this.handleChange}
               required
             />
           </div>
-          <div className='form-footer'>
+          <div className="form-footer">
             <Button
-              variant='contained'
-              color='primary'
-              className='form-btn'
+              variant="contained"
+              color="primary"
+              className="form-btn"
               onClick={this.handleSubmit}
               disabled={!this.validForm()}
-              size='large'
+              size="large"
             >
               Submit
             </Button>
             <Typography>
-              <Link onClick={this.props.toggle} className='toggle-form'>
+              <Link onClick={this.props.toggle} className="toggle-form">
                 Go to Login
               </Link>
             </Typography>

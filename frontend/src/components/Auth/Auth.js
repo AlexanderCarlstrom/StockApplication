@@ -5,11 +5,11 @@ import React from 'react';
 import './Auth.css';
 
 class AuthPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.login = <Login toggle={this.showRegisterForm} />;
-    this.register = <Register toggle={this.showLoginForm} />;
+    this.login = <Login toggle={this.showRegisterForm} history={props.history} />;
+    this.register = <Register toggle={this.showLoginForm} history={props.history} />;
 
     this.state = {
       currentPage: this.login,
@@ -36,10 +36,10 @@ class AuthPage extends React.Component {
 
   render() {
     return (
-      <div id='auth-page'>
-        <AppBar position='static'>
+      <div id="auth-page">
+        <AppBar position="static">
           <Toolbar>
-            <Typography variant='h6'>Stock Application</Typography>
+            <Typography variant="h6">Stock Application</Typography>
           </Toolbar>
         </AppBar>
         <div className={this.state.login ? ' auth-form login-form' : ' auth-form register-form'}>

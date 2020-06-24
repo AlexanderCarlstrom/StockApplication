@@ -1,10 +1,10 @@
 import { AppBar, TextField, Button, Typography, Link } from '@material-ui/core';
-import AuthService from '../../services/AuthService';
+import UserConsumer from '../../logic/UserConsumer';
 import React from 'react';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
@@ -13,21 +13,12 @@ class Login extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    fetch('localhost:4000/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => console.log(err));
+    const { actions } = this.props;
+    actions.onLogin(this.state.email, this.state.password).then((result) => {
+      if (result) {
+        this.props.history.push('/dashboard');
+      }
+    });
   };
 
   onEmailChange = (e) => {
@@ -96,4 +87,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default UserConsumer(Login);

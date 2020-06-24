@@ -1,16 +1,55 @@
 import React, { createContext } from 'react';
+import axios from 'axios';
 
 const userContext = createContext({});
 
 class UserProvider extends React.Component {
   state = {
     isLoggedIn: false,
+    user: {},
   };
 
   handleLogin = (email, password) => {
-    this.setState({
-      isLoggedIn: true,
-    });
+    return axios
+      .post('http://localhost:4000/user/login', {
+        email,
+        password,
+      })
+      .then((res) => {
+        const data = res.data;
+        if (!data.success) {
+          return false;
+        } else {
+          localStorage.setItem('user-token', JSON.stringify(data.token));
+          this.setState({
+            isLoggedIn: true,
+            user: data.user,
+          });
+          return true;
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  handleLoginWithId = (token) => {
+    return axios
+      .get('http://localhost:4000/user/login-with-id', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        if (data.success) {
+          this.setState({
+            isLoggedIn: true,
+            user: data.user,
+          });
+        }
+        return data.success;
+      })
+      .catch((err) => console.log(err));
   };
 
   handleLogout = () => {
@@ -18,6 +57,8 @@ class UserProvider extends React.Component {
       isLoggedIn: false,
       user: {},
     });
+
+    localStorage.removeItem('user-token');
   };
 
   render() {
@@ -27,8 +68,9 @@ class UserProvider extends React.Component {
       isLoggedIn: this.state.isLoggedIn,
       user: this.state.user,
       actions: {
-        handleLogin: this.handleLogin,
-        handleLogout: this.handleLogout,
+        onLogin: this.handleLogin,
+        onLoginWithId: this.handleLoginWithId,
+        onLogout: this.handleLogout,
       },
     };
 
