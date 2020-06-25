@@ -31,8 +31,7 @@ router.post('/change-password', expressJwt({ secret: process.env.SECRET }), (req
 
 router.post('/update', expressJwt({ secret: process.env.SECRET }), (req, res) => {
   console.log('update user');
-  console.log(req.body);
-  // updateUser(req, res);
+  updateUser(req, res);
 });
 
 // main methods
@@ -219,20 +218,21 @@ function updateUser(req, res) {
     user.city = city;
     user.email = email;
 
-    user.save().then((user) => {
-      return res
-        .send({
+    user
+      .save()
+      .then((user) => {
+        return res.send({
           success: true,
           user: user,
-        })
-        .catch((err) => {
-          console.log(err);
-          return res.send({
-            success: false,
-            message: err,
-          });
         });
-    });
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.send({
+          success: false,
+          message: err,
+        });
+      });
   });
 }
 

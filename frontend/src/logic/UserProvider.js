@@ -68,16 +68,16 @@ class UserProvider extends React.Component {
       url: 'http://localhost:4000/user/update',
       headers: {
         Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
       },
       data: {
-        userInfo: JSON.stringify(user),
+        user,
       },
     };
     return axios(config)
       .then((res) => {
         const data = res.data;
         if (!data.success) {
+          console.log(data.message);
           return false;
         } else {
           this.setState({

@@ -57,17 +57,25 @@ const ProfileForm = (props) => {
 
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
-  const [identityNumber, setIdentityNumber] = useState();
   const [address, setAddress] = useState();
   const [city, setCity] = useState();
   const [zip, setZip] = useState();
   // const [phoneNumber, setPhoneNumber] = useState();
   const [email, setEmail] = useState();
   const [userInfo, setUserInfo] = useState();
+  const [mounted, setMounted] = useState(false);
 
   //Fetch i useeffect
   useEffect(() => {
-    console.log(userInfo);
+    if (!mounted) {
+      setMounted(true);
+    } else {
+      props.actions.onUpdateUser(userInfo).then((result) => {
+        if (!result) {
+          alert('could not save user info');
+        }
+      });
+    }
   }, [userInfo]);
 
   const handleSubmit = (e) => {
@@ -75,18 +83,11 @@ const ProfileForm = (props) => {
     setUserInfo({
       firstname: firstname ? firstname : userFormData.firstname,
       lastname: lastname ? lastname : userFormData.lastname,
-      identityNumber: identityNumber ? identityNumber : userFormData.identityNumber,
       address: address ? address : userFormData.address,
       city: city ? city : userFormData.city,
-      zip: zip ? zip : userFormData.zipCode,
+      zipCode: zip ? zip : userFormData.zipCode,
       // phoneNumber: phoneNumber ? phoneNumber : userFormData.phoneNumber,
       email: email ? email : userFormData.email,
-    });
-
-    props.actions.onUpdateUser(userInfo).then((result) => {
-      if (!result) {
-        alert('could not save user info');
-      }
     });
   };
 
@@ -113,14 +114,14 @@ const ProfileForm = (props) => {
           />
         </div>
 
-        <TextField
+        {/* <TextField
           label="Identity Number"
           type="number"
           name="identityNumber"
           defaultValue={userFormData.identityNumber}
           onChange={(e) => setIdentityNumber(e.target.value)}
         />
-        <br />
+        <br /> */}
 
         <TextField
           label="Address"
