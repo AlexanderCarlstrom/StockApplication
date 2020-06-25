@@ -40,7 +40,6 @@ class UserProvider extends React.Component {
       })
       .then((res) => {
         const data = res.data;
-        console.log(data);
         if (data.success) {
           this.setState({
             isLoggedIn: true,
@@ -61,6 +60,38 @@ class UserProvider extends React.Component {
     localStorage.removeItem('user-token');
   };
 
+  updateUser = (user) => {
+    const token = JSON.parse(localStorage.getItem('user-token'));
+
+    var config = {
+      method: 'post',
+      url: 'http://localhost:4000/user/update',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        userInfo: JSON.stringify(user),
+      },
+    };
+    return axios(config)
+      .then((res) => {
+        const data = res.data;
+        if (!data.success) {
+          return false;
+        } else {
+          this.setState({
+            user: data.user,
+          });
+          return true;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+  };
+
   render() {
     const { children } = this.props;
 
@@ -71,6 +102,7 @@ class UserProvider extends React.Component {
         onLogin: this.handleLogin,
         onLoginWithId: this.handleLoginWithId,
         onLogout: this.handleLogout,
+        onUpdateUser: this.updateUser,
       },
     };
 

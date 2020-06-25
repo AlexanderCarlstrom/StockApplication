@@ -54,7 +54,7 @@ class MyProfile extends React.Component {
             <p className="contactInformation">{this.user.email}</p>
           </div>
           <div className="contactInformationDiv">
-            <p className="contactInformationHeader">Adress:</p>
+            <p className="contactInformationHeader">Address:</p>
             <p className="contactInformation">{this.user.address}</p>
           </div>
           <div className="contactInformationDiv">

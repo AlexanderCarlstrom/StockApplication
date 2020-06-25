@@ -5,7 +5,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const _ = require('lodash');
-const { trim } = require('lodash');
+const { trim, add } = require('lodash');
 require('dotenv').config();
 
 // routes
@@ -27,6 +27,12 @@ router.get('/login-with-id', expressJwt({ secret: process.env.SECRET }), (req, r
 router.post('/change-password', expressJwt({ secret: process.env.SECRET }), (req, res) => {
   console.log('change password');
   changePassword(req, res);
+});
+
+router.post('/update', expressJwt({ secret: process.env.SECRET }), (req, res) => {
+  console.log('update user');
+  console.log(req.body);
+  // updateUser(req, res);
 });
 
 // main methods
@@ -177,6 +183,56 @@ function changePassword(req, res) {
         }
       });
     }
+  });
+}
+
+function updateUser(req, res) {
+  const { firstname, lastname, address, zipCode, city, email } = req.body.user;
+
+  if (!firstname || !lastname || !address || !zipCode || !city || !email) {
+    return res.send({
+      success: false,
+      message: 'invalid body',
+    });
+  }
+
+  User.findById(req.user.id, (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.send({
+        success: false,
+        message: err,
+      });
+    }
+
+    if (!user) {
+      return res.send({
+        success: false,
+        message: 'user not found',
+      });
+    }
+
+    user.firstname = firstname;
+    user.lastname = lastname;
+    user.address = address;
+    user.zipCode = zipCode;
+    user.city = city;
+    user.email = email;
+
+    user.save().then((user) => {
+      return res
+        .send({
+          success: true,
+          user: user,
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.send({
+            success: false,
+            message: err,
+          });
+        });
+    });
   });
 }
 

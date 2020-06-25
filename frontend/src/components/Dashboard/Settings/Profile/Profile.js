@@ -4,11 +4,12 @@ import DefaultPic from './defaultProfile.png';
 import '../Settings.css';
 import IconButton from '@material-ui/core/IconButton';
 import BrushIcon from '@material-ui/icons/Brush';
+import UserConsumer from '../../../../logic/UserConsumer';
 
-const Profile = () => (
+const Profile = (props) => (
   <div className="profile">
-    <ProfileImage />
-    <ProfileForm />
+    <ProfileImage user={props.user} actions={props.actions} />
+    <ProfileForm user={props.user} actions={props.actions} />
   </div>
 );
 
@@ -51,35 +52,18 @@ const ProfileImage = () => {
   );
 };
 
-const ProfileForm = () => {
-  const userFormData = {
-    id: 1,
-    firstName: 'Hilda',
-    lastName: 'Olofsdotter',
-    securityNumber: 1111112222,
-    address: 'Halmstad 1',
-    city: 'Halmstad',
-    zip: 12345,
-    phoneNumber: 1245324578,
-    email: 'hilda.hilda@hilda.com',
-  };
+const ProfileForm = (props) => {
+  const userFormData = props.user;
 
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [securityNumber, setSecurityNumber] = useState();
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+  const [identityNumber, setIdentityNumber] = useState();
   const [address, setAddress] = useState();
   const [city, setCity] = useState();
   const [zip, setZip] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
+  // const [phoneNumber, setPhoneNumber] = useState();
   const [email, setEmail] = useState();
   const [userInfo, setUserInfo] = useState();
-
-  const handleChange = (e) => {
-    setUserInfo({
-      ...userInfo,
-      [e.target.name]: e.target.value.trim(),
-    });
-  };
 
   //Fetch i useeffect
   useEffect(() => {
@@ -89,17 +73,21 @@ const ProfileForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserInfo({
-      firstName: firstName ? firstName : userFormData.firstName,
-      lastName: lastName ? lastName : userFormData.lastName,
-      securityNumber: securityNumber ? securityNumber : userFormData.securityNumber,
+      firstname: firstname ? firstname : userFormData.firstname,
+      lastname: lastname ? lastname : userFormData.lastname,
+      identityNumber: identityNumber ? identityNumber : userFormData.identityNumber,
       address: address ? address : userFormData.address,
       city: city ? city : userFormData.city,
-      zip: zip ? zip : userFormData.zip,
-      phoneNumber: phoneNumber ? phoneNumber : userFormData.phoneNumber,
+      zip: zip ? zip : userFormData.zipCode,
+      // phoneNumber: phoneNumber ? phoneNumber : userFormData.phoneNumber,
       email: email ? email : userFormData.email,
     });
 
-    console.log(userInfo);
+    props.actions.onUpdateUser(userInfo).then((result) => {
+      if (!result) {
+        alert('could not save user info');
+      }
+    });
   };
 
   return (
@@ -108,10 +96,10 @@ const ProfileForm = () => {
         <div className="form-line">
           <TextField
             type="text"
-            name="firstName"
+            name="firstname"
             label="Firstname"
-            defaultValue={userFormData.firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            defaultValue={userFormData.firstname}
+            onChange={(e) => setFirstname(e.target.value)}
           />
         </div>
 
@@ -119,18 +107,18 @@ const ProfileForm = () => {
           <TextField
             label="Lastname"
             type="text"
-            name="lastName"
-            defaultValue={userFormData.lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            name="lastname"
+            defaultValue={userFormData.lastname}
+            onChange={(e) => setLastname(e.target.value)}
           />
         </div>
 
         <TextField
-          label="Security number"
+          label="Identity Number"
           type="number"
-          name="securityNumber"
-          defaultValue={userFormData.securityNumber}
-          onChange={(e) => setSecurityNumber(e.target.value)}
+          name="identityNumber"
+          defaultValue={userFormData.identityNumber}
+          onChange={(e) => setIdentityNumber(e.target.value)}
         />
         <br />
 
@@ -158,19 +146,19 @@ const ProfileForm = () => {
             label="Zip"
             type="number"
             name="zip"
-            defaultValue={userFormData.zip}
+            defaultValue={userFormData.zipCode}
             onChange={(e) => setZip(e.target.value)}
           />
         </div>
 
-        <TextField
+        {/* <TextField
           label="Phone number"
           type="number"
           name="phoneNumber"
           defaultValue={userFormData.phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
-        <br />
+        <br /> */}
 
         <TextField
           label="Email"
@@ -189,4 +177,4 @@ const ProfileForm = () => {
   );
 };
 
-export default Profile;
+export default UserConsumer(Profile);
