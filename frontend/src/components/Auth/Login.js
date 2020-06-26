@@ -1,10 +1,10 @@
 import { AppBar, TextField, Button, Typography, Link } from '@material-ui/core';
-import AuthService from '../../services/AuthService';
+import UserConsumer from '../../logic/UserConsumer';
 import React from 'react';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
@@ -13,10 +13,14 @@ class Login extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const result = AuthService.login(this.state.email, this.state.password);
-    if (result) {
-      console.log('logged in');
-    }
+    const { actions } = this.props;
+    actions.onLogin(this.state.email, this.state.password).then((result) => {
+      if (result.success) {
+        this.props.history.push('/dashboard');
+      } else {
+        alert(result.message);
+      }
+    });
   };
 
   onEmailChange = (e) => {
@@ -32,7 +36,7 @@ class Login extends React.Component {
   };
 
   validForm = () => {
-    return this.state.email.length < 5 || this.state.password.length < 6;
+    return this.state.email.length > 0 || this.state.password.length > 0;
   };
 
   render() {
@@ -68,7 +72,7 @@ class Login extends React.Component {
               color="primary"
               className="form-btn"
               onClick={this.handleSubmit}
-              disabled={this.validForm()}
+              disabled={!this.validForm()}
               size="large"
             >
               Submit
@@ -85,4 +89,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default UserConsumer(Login);

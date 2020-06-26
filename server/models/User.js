@@ -45,6 +45,28 @@ const userSchema = new Schema({
   stocks: {
     type: [Stock.Stock],
   },
+  preferences: {
+    construction: {
+      type: Boolean,
+      default: false,
+    },
+    it: {
+      type: Boolean,
+      default: false,
+    },
+    finance: {
+      type: Boolean,
+      default: false,
+    },
+    medicin: {
+      type: Boolean,
+      default: false,
+    },
+    currency: {
+      type: Boolean,
+      default: false,
+    },
+  },
 });
 
 module.exports = User = mongoose.model('User', userSchema, 'users');

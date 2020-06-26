@@ -1,22 +1,13 @@
-import React from 'react';
 import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Button,
-  withStyles,
-  Drawer,
-  Toolbar,
-  Typography,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
-import './Dashboard.css';
-import Home from './Home/Home';
-import Settings from './Settings/Settings';
 import Portfolio from './Portfolio/Portfolio';
+import Settings from './Settings/Settings';
+import UserConsumer from '../../logic/UserConsumer';
+import Home from './Home/Home';
+import { Button, withStyles, Drawer, Toolbar, Typography, Divider, List, ListItem } from '@material-ui/core';
+import React from 'react';
+import './Dashboard.css';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -28,26 +19,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard = () => (
-  <BrowserRouter>
-    <div>
-      <div className="dashboard-nav">
-        <div>
-          <NavigationBar />
+const Dashboard = (props) => {
+  return (
+    <BrowserRouter>
+      <div>
+        <div className="dashboard-nav">
+          <div>
+            <NavigationBar />
+          </div>
+        </div>
+        <div className="content">
+          <div>
+            <Switch>
+              <Route path="/dashboard/" component={Home} exact />
+              <Route path="/dashboard/settings" component={Settings} />
+              <Route path="/dashboard/portfolio" component={Portfolio} />
+            </Switch>
+          </div>
         </div>
       </div>
-      <div className="content">
-        <div>
-          <Switch>
-            <Route path="/dashboard/" component={Home} exact />
-            <Route path="/dashboard/settings" component={Settings} />
-            <Route path="/dashboard/portfolio" component={Portfolio} />
-          </Switch>
-        </div>
-      </div>
-    </div>
-  </BrowserRouter>
-);
+    </BrowserRouter>
+  );
+};
 
 const NavigationBar = () => {
   const classes = useStyles();
@@ -69,8 +62,7 @@ const NavigationBar = () => {
       <List>
         <NavLink to="/dashboard/" style={{ textDecoration: 'none' }} activeClassName="is-active" exact={true}>
           <ListItem button key="home">
-            {/* <StyledButton disableElevation>Home</StyledButton>{' '} */}
-            <ListItemText primary="Home" />
+            <StyledButton disableElevation>Home</StyledButton>{' '}
           </ListItem>
         </NavLink>{' '}
         <NavLink to="/dashboard/settings" style={{ textDecoration: 'none' }} activeClassName="is-active">
@@ -98,9 +90,6 @@ const StyledButton = withStyles({
     width: '200px',
     padding: '20px',
   },
-  selected: {
-    background: '#D7D7D7',
-  },
 })(Button);
 
-export default Dashboard;
+export default UserConsumer(Dashboard);

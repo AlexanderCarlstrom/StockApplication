@@ -5,11 +5,11 @@ import React from 'react';
 import './Auth.css';
 
 class AuthPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.login = <Login toggle={this.showRegisterForm} />;
-    this.register = <Register toggle={this.showLoginForm} />;
+    this.login = <Login toggle={this.showRegisterForm} history={props.history} />;
+    this.register = <Register toggle={this.showLoginForm} history={props.history} />;
 
     this.state = {
       currentPage: this.login,
@@ -23,14 +23,15 @@ class AuthPage extends React.Component {
   showLoginForm = () => {
     this.setState({
       currentPage: this.login,
+      login: true,
     });
   };
 
   showRegisterForm = () => {
     this.setState({
       currentPage: this.register,
+      login: false,
     });
-    console.log('hello');
   };
 
   render() {
@@ -41,7 +42,9 @@ class AuthPage extends React.Component {
             <Typography variant="h6">Stock Application</Typography>
           </Toolbar>
         </AppBar>
-        <div className="auth-form">{this.state.currentPage}</div>
+        <div className={this.state.login ? ' auth-form login-form' : ' auth-form register-form'}>
+          {this.state.currentPage}
+        </div>
       </div>
     );
   }
