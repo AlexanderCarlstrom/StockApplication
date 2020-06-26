@@ -18,31 +18,37 @@ router.post('/sell', expressJwt({ secret: process.env.SECRET }), (req, res) => {
 
 // main methods
 function buyStock(req, res) {
-  const symbol = req.body.symbol;
+  const name = req.body.name;
   const amount = req.body.amount;
+  const price = req.body.price;
+  const industry = req.body.industry;
+  const currency = req.body.currency;
 
-  if (!symbol || !amount) {
-    return res.status(400).send('invalid body');
+  if (!name || !amount || !price || !industry || !currency) {
+    return res.send({success: false, message: 'invalid body' })
   }
 
   // find user with id from jwt token
   User.findById(req.user.id, (err, user) => {
     if (err) {
       console.log(err);
-      return res.sendStatus(400);
+      return res.send({success: false, message: err });
     } else if (!user) {
-      return res.status(401).send('user not found');
+      return res.send({success: false, message: 'user not found' })
     } else {
       // check if user already has stock
-      const index = _.findIndex(user.stocks, (stock) => stock.symbol === symbol);
+      const index = _.findIndex(user.stocks, (stock) => stock.name === name);
       // if index is not -1 then user already have stock, otherwise create new stock and add it to user
       if (index !== -1) {
         const newAmount = user.stocks[index].amount + amount;
         user.stocks[index].amount = newAmount;
       } else {
         const newStock = new Stock({
-          symbol: symbol,
+          name: name,
           amount: amount,
+          price: price,
+          industry: industry,
+          currency: currency,
         });
         user.stocks.push(newStock);
       }
