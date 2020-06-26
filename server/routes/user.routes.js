@@ -260,7 +260,7 @@ function updatePreferences(req, res) {
 
 // helper methods
 function trimUser(user) {
-  return _.pick(user, ['stocks', 'firstname', 'lastname', 'identityNumber', 'address', 'zipCode', 'city', 'email']);
+  return _.pick(user, ['stocks', 'firstname', 'lastname', 'identityNumber', 'address', 'zipCode', 'city', 'email', 'preferences']);
 }
 
 module.exports = router;

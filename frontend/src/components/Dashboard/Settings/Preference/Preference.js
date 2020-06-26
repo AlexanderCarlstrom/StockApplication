@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import '../Settings.css';
-import { Checkbox, FormGroup, Button } from '@material-ui/core';
+import React, { useState } from "react";
+import "../Settings.css";
+import { Checkbox, FormGroup, Button } from "@material-ui/core";
+import UserConsumer from "../../../../logic/UserConsumer";
 
-const Preference = () => {
+const Preference = (props) => {
   return (
     <div className="preference">
-      <CheckBoxForm />
+      <CheckBoxForm user={props.user} />
     </div>
   );
 };
@@ -19,18 +20,27 @@ const CheckBox = ({ value, isClicked, checked }) => {
   );
 };
 
-const CheckBoxForm = () => {
-  const options = [
-    { name: 'Finans', clicked: true },
-    { name: 'Trees', clicked: true },
-    { name: 'Industri', clicked: false },
-  ];
 
+
+const CheckBoxForm = (props) => {
+  const user = props.user;
+  const options = [
+    { name: "Construction", clicked: user.preferences.construction },
+    { name: "IT", clicked: user.preferences.it },
+    { name: "Finance", clicked: user.preferences.finance },
+    { name: "Medicine", clicked: user.preferences.medicin },
+    { name: "Currency", clicked: user.preferences.currency },
+  ];
   const [selectedOptions, setSelectedOptions] = useState(options);
 
   const GenerateCheckBox = () => {
-    return selectedOptions.map((option, index) => (
-      <CheckBox key={index} isClicked={() => checked(index)} checked={option.clicked} value={option.name} />
+    return options.map((option, index) => (
+      <CheckBox
+        key={index}
+        isClicked={() => checked(index)}
+        checked={option.clicked}
+        value={option.name}
+      />
     ));
   };
 
@@ -58,4 +68,4 @@ const CheckBoxForm = () => {
   );
 };
 
-export default Preference;
+export default UserConsumer(Preference);
