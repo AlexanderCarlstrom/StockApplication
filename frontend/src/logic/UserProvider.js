@@ -97,6 +97,38 @@ class UserProvider extends React.Component {
       });
   };
 
+  updatePreferences = (user) => {
+    const token = JSON.parse(localStorage.getItem('user-token'));
+
+    var config = {
+      method: 'post',
+      url: 'http://localhost:4000/user/update-preferences',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+      data: {
+        preferences: user.preferences,
+      },
+    };
+    return axios(config)
+      .then((res) => {
+        const data = res.data;
+        if (!data.success) {
+          console.log(data.message);
+          return false;
+        } else {
+          this.setState({
+            user: data.user,
+          });
+          return true;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+  };
+
   render() {
     const { children } = this.props;
 
@@ -108,6 +140,7 @@ class UserProvider extends React.Component {
         onLoginWithId: this.handleLoginWithId,
         onLogout: this.handleLogout,
         onUpdateUser: this.updateUser,
+        onUpdatePreferences: this.updatePreferences,
       },
     };
 

@@ -8,6 +8,14 @@ class MyProfile extends React.Component {
     super(props);
     this.userData = this.props.getUserData();
     this.user = props.user;
+    this.preferredIndustries = [
+      { name: "Construction", clicked: this.user.preferences.construction },
+      { name: "IT", clicked: this.user.preferences.it },
+      { name: "Finance", clicked: this.user.preferences.finance },
+      { name: "Medicine", clicked: this.user.preferences.medicin },
+      { name: "Currency", clicked: this.user.preferences.currency },
+    ];
+
   }
 
   render() {
@@ -36,9 +44,9 @@ class MyProfile extends React.Component {
             Preferred Industries
           </p>
           <div id="industryCollection">
-            {this.userData.preferredIndustries.map((industry) => (
-              <div className="industryItem" key={industry}>
-                <p>{industry}</p>
+            {this.preferredIndustries.filter(industry => industry.clicked===true).map((industry) => (
+              <div className="industryItem" key={industry.name}>
+                <p>{industry.name}</p>
               </div>
             ))}
           </div>
