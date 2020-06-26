@@ -15,8 +15,10 @@ class Login extends React.Component {
     e.preventDefault();
     const { actions } = this.props;
     actions.onLogin(this.state.email, this.state.password).then((result) => {
-      if (result) {
+      if (result.success) {
         this.props.history.push('/dashboard');
+      } else {
+        alert(result.message);
       }
     });
   };

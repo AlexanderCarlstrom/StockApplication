@@ -18,14 +18,19 @@ class UserProvider extends React.Component {
       .then((res) => {
         const data = res.data;
         if (!data.success) {
-          return false;
+          return {
+            success: false,
+            message: data.message,
+          };
         } else {
           localStorage.setItem('user-token', JSON.stringify(data.token));
           this.setState({
             isLoggedIn: true,
             user: data.user,
           });
-          return true;
+          return {
+            success: true,
+          };
         }
       })
       .catch((err) => console.log(err));

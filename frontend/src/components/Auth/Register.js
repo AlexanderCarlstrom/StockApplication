@@ -1,5 +1,13 @@
 import React from 'react';
 import { AppBar, TextField, Button, Typography, Link, Tooltip } from '@material-ui/core';
+import UserConsumer from '../../logic/UserConsumer';
+import axios from 'axios';
+
+// users
+// melvin.engstrom@gmail.com
+// 1234567
+// alfred.astrom@gmail.com
+// aB1aB1
 
 class Register extends React.Component {
   constructor() {
@@ -35,6 +43,28 @@ class Register extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
+    if (this.validForm) {
+      axios
+        .post('http://localhost:4000/user/register', {
+          firstname: this.state.firstname,
+          lastname: this.state.lastname,
+          identityNumber: this.state.identityNumber,
+          email: this.state.email,
+          password: this.state.password,
+          address: this.state.address,
+          zipCode: this.state.zipCode,
+          city: this.state.city,
+        })
+        .then((res) => {
+          console.log(res);
+          if (!res.data.success) {
+            alert(res.data.message);
+          } else {
+            this.props.history.push('/');
+          }
+        });
+    }
   };
 
   handleChange = (e) => {
@@ -65,9 +95,9 @@ class Register extends React.Component {
         break;
       // identity number validation
       case 'identity number':
-        state.identityNumber = value;
         const identityNumberRegex = /[0-9]{12}/;
-        const identityNumber = state.identityNumber.replace('-', '');
+        const identityNumber = value.replace('-', '');
+        state.identityNumber = identityNumber;
         if (!identityNumberRegex.test(identityNumber)) {
           state.errors.identityNumber = 'Identity number must contain 12 digits';
         } else {
@@ -87,9 +117,7 @@ class Register extends React.Component {
       // password validation
       case 'password':
         state.password = value;
-        const passwordRegex = new RegExp(
-          '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|]).{6,32}$'
-        );
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
         if (!passwordRegex.test(state.password)) {
           state.errors.password = 'Please enter a valid password';
         } else {
@@ -270,19 +298,13 @@ class Register extends React.Component {
               title={
                 <React.Fragment>
                   <Typography variant="subtitle2">{'Password Must Contain:'}</Typography>
-                  <Typography variant="body2">
-                    <ul>
-                      <li>{'6 characters'}</li>
-                      <li>{'one uppercase character'}</li>
-                      <li>{'one lowercase character'}</li>
-                      <li>{'one digit'}</li>
-                      <li>{'one special character'}</li>
-                    </ul>
-                  </Typography>
-                  <Typography variant="body2"></Typography>
-                  <Typography variant="body2"></Typography>
-                  <Typography variant="body2"></Typography>
-                  <Typography variant="body2"></Typography>
+
+                  <ul className="password-tooltip">
+                    <li>{'6 characters'}</li>
+                    <li>{'one uppercase character'}</li>
+                    <li>{'one lowercase character'}</li>
+                    <li>{'one digit'}</li>
+                  </ul>
                 </React.Fragment>
               }
               placement="bottom"
@@ -339,4 +361,4 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+export default UserConsumer(Register);

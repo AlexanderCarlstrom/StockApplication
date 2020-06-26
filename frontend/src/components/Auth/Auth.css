@@ -51,6 +51,10 @@
   margin-bottom: 20px;
 }
 
+.password-tooltip {
+  font-family: 'Roboto', sans-serif;
+}
+
 .auth-form form .form-footer {
   width: 100%;
   margin-top: 40px;

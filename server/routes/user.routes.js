@@ -5,7 +5,6 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const _ = require('lodash');
-const { trim, add } = require('lodash');
 require('dotenv').config();
 
 // routes
@@ -40,20 +39,26 @@ async function register(req, res) {
   const lastname = req.body.lastname;
   const idNumber = req.body.identityNumber;
   const address = req.body.address;
-  const zip = req.body.zip;
+  const zip = req.body.zipCode;
   const city = req.body.city;
   const email = req.body.email;
   const password = req.body.password;
 
   // check that all values exist
   if (!firstname || !lastname || !idNumber || !address || !zip || !city || !email || !password) {
-    return res.status(400).send('invalid body');
+    return res.send({
+      success: false,
+      message: 'invalid body',
+    });
   }
 
   // check if email already exist in db
   User.findOne({ email: email }).then((user) => {
     if (user) {
-      return res.status(401).send('Email already exist');
+      return res.send({
+        success: false,
+        message: 'email already exist',
+      });
     } else {
       // if email doesn't exist in db then hash password and save new user to db
       const hash = bcrypt.hashSync(password, 10);
@@ -70,8 +75,14 @@ async function register(req, res) {
 
       user
         .save()
-        .then((user) => res.json(user))
-        .catch((err) => console.log(err));
+        .then(() =>
+          res.send({
+            success: true,
+          })
+        )
+        .catch((err) => {
+          console.log(err);
+        });
     }
   });
 }
