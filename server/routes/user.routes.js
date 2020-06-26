@@ -33,6 +33,11 @@ router.post('/update', expressJwt({ secret: process.env.SECRET }), (req, res) =>
   updateUser(req, res);
 });
 
+router.post('/update-preferences', expressJwt({ secret: process.env.SECRET }), (req, res) => {
+  console.log('update preferences');
+  updatePreferences(req, res);
+});
+
 // main methods
 async function register(req, res) {
   const firstname = req.body.firstname;
@@ -245,6 +250,12 @@ function updateUser(req, res) {
         });
       });
   });
+}
+
+function updatePreferences(req, res) {
+  const preferences = req.body.preferences;
+
+  User.findById(req.user.id, (err, user) => {});
 }
 
 // helper methods
