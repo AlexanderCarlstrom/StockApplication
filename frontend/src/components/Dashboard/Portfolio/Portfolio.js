@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Portfolio.css';
+import "./Portfolio.css";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableHead from "@material-ui/core/TableHead";
@@ -56,57 +56,59 @@ const Portfolio = () => {
   };
 
   return (
-    <div id="tableWrapper">
-    <h1>My Portfolio</h1>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {ownedCompanies
-              .slice(
-                currentPageIndex * numberOfCompaniesToDisplay,
-                currentPageIndex * numberOfCompaniesToDisplay +
-                  numberOfCompaniesToDisplay
-              )
-              .map((elem) => (
-                <TableRow key={elem.name}>
-                  <TableCell>{elem.name}</TableCell>
-                  <TableCell>{elem.typeOfTrade}</TableCell>
-                  <TableCell>{elem.ownedValue} SEK</TableCell>
-                  <TableCell>{elem.type}</TableCell>
-                  <TableCell>{elem.amount} st</TableCell>
-                  <TableCell>{elem.shareNumber}</TableCell>
-                  <TableCell>{elem.ownerPercentage}%</TableCell>
-                  <TableCell>{elem.votingPercentage}%</TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                count={ownedCompanies.length}
-                page={currentPageIndex}
-                onChangePage={handleChangePage}
-                rowsPerPage={numberOfCompaniesToDisplay}
-                rowsPerPageOptions={[10, 20, 30, 40, 50]}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
+    <div id="tablePageWrapper">
+      <h1 className="pageHeaderText">My Portfolio</h1>
+      <div id="tableWrapper">
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {ownedCompanies
+                .slice(
+                  currentPageIndex * numberOfCompaniesToDisplay,
+                  currentPageIndex * numberOfCompaniesToDisplay +
+                    numberOfCompaniesToDisplay
+                )
+                .map((elem) => (
+                  <TableRow key={elem.name}>
+                    <TableCell>{elem.name}</TableCell>
+                    <TableCell>{elem.typeOfTrade}</TableCell>
+                    <TableCell>{elem.ownedValue} SEK</TableCell>
+                    <TableCell>{elem.type}</TableCell>
+                    <TableCell>{elem.amount} st</TableCell>
+                    <TableCell>{elem.shareNumber}</TableCell>
+                    <TableCell>{elem.ownerPercentage}%</TableCell>
+                    <TableCell>{elem.votingPercentage}%</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  count={ownedCompanies.length}
+                  page={currentPageIndex}
+                  onChangePage={handleChangePage}
+                  rowsPerPage={numberOfCompaniesToDisplay}
+                  rowsPerPageOptions={[10, 20, 30, 40, 50]}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   );
 };

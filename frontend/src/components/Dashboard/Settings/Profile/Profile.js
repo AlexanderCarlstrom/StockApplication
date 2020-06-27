@@ -33,7 +33,7 @@ const ProfileImage = () => {
   return (
     <div className="form-content">
       <div className="profileImg">
-        <img ref={uploadedImage} width="100px" style={{ borderRadius: 50 }} alt="profile" />
+        <img src={DefaultPic} width="100px" style={{ borderRadius: 50 }} alt="profile" />
         <input
           accept="image/*"
           className="inputBtn"

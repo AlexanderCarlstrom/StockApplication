@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import HomeIcon from '@material-ui/icons/Home';
+//import HomeIcon from '@material-ui/icons/Home';
 import Portfolio from './Portfolio/Portfolio';
 import Settings from './Settings/Settings';
 import UserConsumer from '../../logic/UserConsumer';
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = (props) => {
   return (
     <BrowserRouter>
-      <div>
+      <div id="dashBoardContainer">
         <div className="dashboard-nav">
           <div>
             <NavigationBar />

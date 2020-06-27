@@ -1,6 +1,6 @@
 import React from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import { Button } from "@material-ui/core";
+//import { Button } from "@material-ui/core";
 import "./MyShareholdning.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -77,9 +77,9 @@ class MyShareholding extends React.Component {
       <div>
         <div className="containerDiv" id="headerDiv">
           <h3 className="componentHeaderText">My Holdings</h3>
-          <Button variant="contained" color="primary" id="editProfileButton">
+          {/*<Button variant="contained" color="primary" id="editProfileButton">
             My Portfolio
-          </Button>
+    </Button>*/}
         </div>
         <div id="lastUpdatedAndValue">
           <h1>{this.getTotalAssetsValue()} SEK</h1>

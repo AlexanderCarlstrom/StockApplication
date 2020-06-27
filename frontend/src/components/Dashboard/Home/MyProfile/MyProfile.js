@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+//import { Button } from '@material-ui/core';
 import UserConsumer from '../../../../logic/UserConsumer';
+import DefaultPic from '../../Settings/Profile/defaultProfile.png';
 import './MyProfile.css';
 
 class MyProfile extends React.Component {
@@ -23,13 +24,13 @@ class MyProfile extends React.Component {
       <div>
         <div className="containerDiv" id="headerDiv">
           <h3 className="componentHeaderText">My Profile</h3>
-          <Button variant="contained" color="primary" id="editProfileButton">
+          {/*<Button variant="contained" color="primary" id="editProfileButton">
             Edit Profile
-          </Button>
+    </Button>*/}
         </div>
         <div className="containerDiv" id="profileDiv">
           <div id="imageContainer">
-            <img src={this.userData.profilePic} id="profilePicture" alt="Profile" />
+            <img src={DefaultPic} id="profilePicture" alt="Profile" />
           </div>
           <div id="personalInformationDiv">
             <p id="profileText">

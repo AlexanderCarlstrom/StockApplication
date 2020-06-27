@@ -1,15 +1,16 @@
 .settings {
   background-color: rgb(212, 212, 212);
-  height: 1000px;
+  padding: 15px;
 }
+
 .settings-header {
-  width: 600px;
-  padding: 30px;
-  margin: auto;
+  padding: 15px;
   margin-bottom: 30px;
   border-bottom: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: rgb(250, 250, 250);
+  display: flex;
+  justify-content: space-evenly;
 }
 
 h1 {
@@ -51,4 +52,8 @@ h1 {
 .form-line {
   float: left;
   width: 270px;
+}
+
+.settingsPageWrapper {
+  background-color: rgb(212, 212, 212);
 }
