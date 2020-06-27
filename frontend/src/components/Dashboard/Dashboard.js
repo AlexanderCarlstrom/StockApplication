@@ -82,7 +82,7 @@ const NavigationBar = () => {
 
 const StyledButton = withStyles({
   root: {
-    background: 'linear-gradient(10deg, #FFFFFF 30%, #FFFFFF 90%)',
+    background: 'white',
     borderRadius: 3,
     margin: 10,
     color: 'black',

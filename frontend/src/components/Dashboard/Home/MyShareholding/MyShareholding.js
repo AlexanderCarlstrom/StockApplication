@@ -57,20 +57,16 @@ class MyShareholding extends React.Component {
   };
 
   getTotalAssetsValue = () => {
-    let totalValue=0;
-    this.userData.ownedShares.map(share=>totalValue+=share.value);
+    let totalValue = 0;
+    this.userData.ownedShares.map((share) => (totalValue += share.value));
     totalValue = this.numberFormatFix(totalValue);
     return totalValue.toString();
-  }
+  };
 
-  numberFormatFix = (number) =>{
-    number = number.toLocaleString(
-      undefined, // leave undefined to use the browser's locale,
-                 // or use a string like 'en-US' to override it.
-      { minimumFractionDigits: 0 }
-    );
+  numberFormatFix = (number) => {
+    number = number.toLocaleString(undefined, { minimumFractionDigits: 0 });
     return number.toString();
-  }
+  };
 
   render() {
     return (
@@ -83,7 +79,9 @@ class MyShareholding extends React.Component {
         </div>
         <div id="lastUpdatedAndValue">
           <h1>{this.getTotalAssetsValue()} SEK</h1>
-          <p id="lastUpdatedText">Last updated: {this.userData.lastUpdate.toDateString()}</p>
+          <p id="lastUpdatedText">
+            Last updated: {this.userData.lastUpdate.toDateString()}
+          </p>
         </div>
         <div id="barDiv">
           <ProgressBar>
@@ -101,20 +99,13 @@ class MyShareholding extends React.Component {
         </div>
         <div id="companySummaryDiv">
           {this.industryArray.map((industry, index) => (
-            <div className="industrySummaryDiv" key={index + 1 * 40}>
-              <div
-                key={index + 1 * 30}
-                className={"industry" + index.toString()}
-              ></div>
+            <div className="industrySummaryDiv" key={industry}>
+              <div className={"industry" + index.toString()}></div>
               <div className="companyIndustryDiv">
-                <p key={index} className="industryText">
-                  {industry}
-                </p>
-                <p key={index + 1 * 10} className="companyText">
-                  {this.getCompanyString(industry)}
-                </p>
+                <p className="industryText">{industry}</p>
+                <p className="companyText">{this.getCompanyString(industry)}</p>
               </div>
-              <p key={index + 1 * 20} className="valueText">
+              <p className="valueText">
                 {this.numberFormatFix(this.getTotalIndustryValue(industry))} SEK
               </p>
             </div>

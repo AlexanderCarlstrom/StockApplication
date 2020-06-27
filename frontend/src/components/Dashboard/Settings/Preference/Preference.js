@@ -14,7 +14,7 @@ const Preference = (props) => {
 const CheckBox = ({ value, isClicked, checked }) => {
   return (
     <label>
-      <Checkbox onChange={isClicked} checked={checked} />
+      <Checkbox color="primary" onChange={isClicked} checked={checked} />
       {value}
     </label>
   );
@@ -53,7 +53,6 @@ const CheckBoxForm = (props) => {
 
   useEffect(() => {
     user.preferences = updatePreferencesFromCheckboxValues();
-    console.log(user.preferences);
     if (!mounted) {
       setMounted(true);
     } else {

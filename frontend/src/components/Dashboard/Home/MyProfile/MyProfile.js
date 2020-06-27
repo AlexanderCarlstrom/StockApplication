@@ -37,7 +37,7 @@ class MyProfile extends React.Component {
               {this.user.firstname} {this.user.lastname}
             </p>
             <p className="headerText">Social Security Number/Organisation Number</p>
-            <p>{this.user.identityNumber}</p>
+            <p>{this.user.identityNumber.slice(0, this.user.identityNumber.length-4) + "-" + this.user.identityNumber.slice(this.user.identityNumber.length-4)}</p>
           </div>
         </div>
         <div className="containerDiv" id="preferredIndustriesDiv">
