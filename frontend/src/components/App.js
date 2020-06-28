@@ -20,7 +20,6 @@ class App extends React.Component {
       if (token) {
         this.props.actions.onLoginWithId(token).then((result) => {
           if (result) {
-            console.log(result);
             this.history.push('/dashboard');
           }
         });

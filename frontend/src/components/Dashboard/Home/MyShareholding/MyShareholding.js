@@ -63,15 +63,15 @@ class MyShareholding extends React.Component {
 
   getCompanyString = (industry) => {
     let stockString = '';
-    industry.map((stock, index) => {
-      if (index === 5) {
-        stockString += '...';
-      }
-
+    industry.slice(0, 4).map((stock, index) => {
       if (index > 0) {
         stockString += ', ';
       }
       stockString += stock.name;
+
+      if (index === 3) {
+        stockString += '...';
+      }
     });
     return stockString;
   };
@@ -97,37 +97,24 @@ class MyShareholding extends React.Component {
             {this.industries.map((industry, index) => {
               if (industry.stocks.length > 0) {
                 return (
-                  <ProgressBar variant={'industry' + index} now={100 / industry.stocks.length} key={industry.name} />
+                  <ProgressBar
+                    variant={'industry' + index}
+                    now={(100 / this.stocks.length) * industry.stocks.length}
+                    key={industry.name}
+                  />
                 );
               } else return;
             })}
-            {/* {this.userData.ownedShares.map((ownedShare, index) => (
-              <ProgressBar
-                variant={'industry' + this.industryArray.indexOf(ownedShare.typeOfTrade).toString()}
-                now={100 / this.userData.ownedShares.length}
-                key={index}
-              />
-            ))} */}
           </ProgressBar>
         </div>
         <div id="companySummaryDiv">
-          {/* {this.industryArray.map((industry, index) => (
-            <div className="industrySummaryDiv" key={industry}>
-              <div className={'industry' + index.toString()}></div>
-              <div className="companyIndustryDiv">
-                <p className="industryText">{industry}</p>
-                <p className="companyText">{this.getCompanyString(industry)}</p>
-              </div>
-              <p className="valueText">{this.numberFormatFix(this.getTotalIndustryValue(industry))} SEK</p>
-            </div>
-          ))} */}
           {this.industries.map((industry, index) => {
             if (industry.stocks.length > 0) {
               return (
                 <div className="industrySummaryDiv" key={industry.name}>
                   <div className={'industry' + index.toString()}></div>
                   <div className="companyIndustryDiv">
-                    <p className="industryText">{industry.name}</p>
+                    <p className="industryText">{industry.name.toUpperCase()}</p>
                     <p className="companyText">{this.getCompanyString(industry.stocks)}</p>
                   </div>
                 </div>

@@ -89,7 +89,6 @@ class UserProvider extends React.Component {
       .then((res) => {
         const data = res.data;
         if (!data.success) {
-          console.log(data.message);
           return false;
         } else {
           this.setState({
@@ -138,23 +137,26 @@ class UserProvider extends React.Component {
   // helper methods
   updateStocks = () => {
     const stocks = this.state.user.stocks;
+    let values = [];
+    let totValue = 0;
 
     stocks.map((stock) => {
-      let value = 0;
-
-      if (stock.currency !== 'USD') {
-        axios.get(`https://api.exchangeratesapi.io/latest?symbols=USD&base=${stock.currency}`).then((result) => {
-          value = stock.price * Object.values(result.data.rates)[0] * stock.amount;
-          this.setState({
-            totalValue: this.state.totalValue + value,
-          });
-        });
+      if (stock.currency === 'USD') {
+        totValue += stock.price * stock.amount;
       } else {
-        value += stock.price * stock.amount;
-        this.setState({
-          totalValue: this.state.totalValue + value,
+        axios.get(`https://api.exchangeratesapi.io/latest?symbols=USD&base=${stock.currency}`).then((result) => {
+          const value = stock.price * Object.values(result.data.rates)[0] * stock.amount;
+          values.push(value);
         });
       }
+    });
+
+    values.map((value) => {
+      totValue += value;
+    });
+
+    this.setState({
+      totalValue: totValue,
     });
   };
 

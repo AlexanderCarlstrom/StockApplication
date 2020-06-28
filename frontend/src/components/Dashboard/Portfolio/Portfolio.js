@@ -1,28 +1,29 @@
-import React, { useState } from "react";
-import "./Portfolio.css";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableHead from "@material-ui/core/TableHead";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableFooter from "@material-ui/core/TableFooter";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import React, { useState } from 'react';
+import './Portfolio.css';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import UserConsumer from '../../../logic/UserConsumer';
 
-const Portfolio = () => {
+const Portfolio = (props) => {
   const createCompanyObjects = () => {
     let arrayOfObjects = [];
     for (let i = 0; i < 350; i++) {
       let object = {
-        name: "Company " + i.toString(),
-        typeOfTrade: "Industry " + i.toString(),
+        name: 'Company ' + i.toString(),
+        typeOfTrade: 'Industry ' + i.toString(),
         ownedValue: 20000,
-        type: "A",
+        type: 'A',
         amount: 3000,
-        shareNumber: "0000-0000",
-        ownerPercentage: "1,00",
-        votingPercentage: "1,00",
+        shareNumber: '0000-0000',
+        ownerPercentage: '1,00',
+        votingPercentage: '1,00',
       };
       arrayOfObjects.push(object);
     }
@@ -30,21 +31,16 @@ const Portfolio = () => {
   };
 
   const columns = [
-    { id: "name", label: "Name", minWidth: 70 },
-    { id: "industryType", label: "Industry Type", minWidth: 70 },
-    { id: "ownedvalue", label: "Total Value", minWidth: 70 },
-    { id: "shareType", label: "Type", minWidth: 70 },
-    { id: "ownedAmount", label: "Amount", minWidth: 70 },
-    { id: "shareNumber", label: "Share Number", minWidth: 70 },
-    { id: "ownerPercentage", label: "Percentage Owned", minWidth: 70 },
-    { id: "votingPercentage", label: "Voting Percentage", minWidth: 70 },
+    { id: 'name', label: 'Name', minWidth: 70 },
+    { id: 'industryType', label: 'Industry', minWidth: 70 },
+    { id: 'price', label: 'Price', minWidth: 70 },
+    { id: 'amount', label: 'Amount', minWidth: 70 },
+    { id: 'currency', label: 'Currency', minWidth: 70 },
+    { id: 'totValue', label: 'Total Value', minWidth: 70 },
   ];
 
-  const ownedCompanies = createCompanyObjects();
-  const [
-    numberOfCompaniesToDisplay,
-    updateNumberOfCompaniesToDisplay,
-  ] = useState(10);
+  const ownedCompanies = props.user.stocks;
+  const [numberOfCompaniesToDisplay, updateNumberOfCompaniesToDisplay] = useState(10);
   const [currentPageIndex, updateCurrentPageIndex] = useState(0);
 
   const handleChangePage = (e, newPage) => {
@@ -64,11 +60,7 @@ const Portfolio = () => {
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
+                  <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
                     {column.label}
                   </TableCell>
                 ))}
@@ -78,19 +70,16 @@ const Portfolio = () => {
               {ownedCompanies
                 .slice(
                   currentPageIndex * numberOfCompaniesToDisplay,
-                  currentPageIndex * numberOfCompaniesToDisplay +
-                    numberOfCompaniesToDisplay
+                  currentPageIndex * numberOfCompaniesToDisplay + numberOfCompaniesToDisplay
                 )
                 .map((elem) => (
                   <TableRow key={elem.name}>
                     <TableCell>{elem.name}</TableCell>
-                    <TableCell>{elem.typeOfTrade}</TableCell>
-                    <TableCell>{elem.ownedValue} SEK</TableCell>
-                    <TableCell>{elem.type}</TableCell>
-                    <TableCell>{elem.amount} st</TableCell>
-                    <TableCell>{elem.shareNumber}</TableCell>
-                    <TableCell>{elem.ownerPercentage}%</TableCell>
-                    <TableCell>{elem.votingPercentage}%</TableCell>
+                    <TableCell>{elem.industry}</TableCell>
+                    <TableCell>{elem.price}</TableCell>
+                    <TableCell>{elem.amount}</TableCell>
+                    <TableCell>{elem.currency}</TableCell>
+                    <TableCell>{(elem.price * elem.amount).toFixed(2)}</TableCell>
                   </TableRow>
                 ))}
             </TableBody>
@@ -113,4 +102,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default UserConsumer(Portfolio);
