@@ -25,16 +25,16 @@ function buyStock(req, res) {
   const currency = req.body.currency;
 
   if (!name || !amount || !price || !industry || !currency) {
-    return res.send({success: false, message: 'invalid body' })
+    return res.send({ success: false, message: 'invalid body' });
   }
 
   // find user with id from jwt token
   User.findById(req.user.id, (err, user) => {
     if (err) {
       console.log(err);
-      return res.send({success: false, message: err });
+      return res.send({ success: false, message: err });
     } else if (!user) {
-      return res.send({success: false, message: 'user not found' })
+      return res.send({ success: false, message: 'user not found' });
     } else {
       // check if user already has stock
       const index = _.findIndex(user.stocks, (stock) => stock.name === name);
@@ -55,36 +55,45 @@ function buyStock(req, res) {
       user.markModified('stocks');
       user
         .save()
-        .then(() => res.send(user))
+        .then((doc) =>
+          res.send({
+            success: true,
+            user: doc,
+          })
+        )
         .catch((e) => console.log(e));
     }
   });
 }
 
 function sellStock(req, res) {
-  const symbol = req.body.symbol;
+  const name = req.body.name;
   const amount = req.body.amount;
 
-  if (!symbol || !amount) {
+  if (!name || !amount) {
     return res.status(400).send('invalid body');
   }
 
   // find user with id from jwt token
-  User.findById(req.user.id, (err, user) => {
-    if (err) {
-      console.log(err);
-      return res.sendStatus(400);
-    } else if (!user) {
-      return res.status(401).send('user not found');
+  User.findById(req.user.id).then((user) => {
+    if (!user) {
+      console.log('user not found');
+      return res.send({
+        success: false,
+        forUser: false,
+      });
     } else {
       // check if user already has stock
-      const index = _.findIndex(user.stocks, (stock) => stock.symbol === symbol);
+      const index = _.findIndex(user.stocks, (stock) => stock.name === name);
       // if index is not -1 then decrease amount by inputed number
       if (index !== -1) {
         const newAmount = user.stocks[index].amount - amount;
-        // if user tries to sell more stocks than they have, return error
         if (newAmount < 0) {
-          return res.status(400).send('cannot sell more stocks than available');
+          return res.send({
+            success: false,
+            forUser: true,
+            message: 'Cannot Sell More Stocks Than You Have',
+          });
         }
 
         // if new amount is 0 then remove stock from user
@@ -96,7 +105,12 @@ function sellStock(req, res) {
         user.markModified('stocks');
         user
           .save()
-          .then(() => res.send(user))
+          .then((doc) =>
+            res.send({
+              success: true,
+              user: doc,
+            })
+          )
           .catch((e) => console.log(e));
       }
     }
