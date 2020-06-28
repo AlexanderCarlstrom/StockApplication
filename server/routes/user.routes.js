@@ -188,7 +188,7 @@ function changePassword(req, res) {
         message: 'Could Not Change Password',
       });
     } else {
-      bcrypt.compare(oldPassword, user.password, (result) => {
+      bcrypt.compare(oldPassword, user.password).then((result) => {
         if (!result) {
           res.send({
             success: false,

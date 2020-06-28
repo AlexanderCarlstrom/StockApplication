@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import "../Settings.css";
-import { Checkbox, FormGroup, Button } from "@material-ui/core";
-import UserConsumer from "../../../../logic/UserConsumer";
+import React, { useState, useEffect } from 'react';
+import '../Settings.css';
+import { Checkbox, FormGroup, Button } from '@material-ui/core';
+import UserConsumer from '../../../../logic/UserConsumer';
 
 const Preference = (props) => {
   return (
@@ -23,23 +23,18 @@ const CheckBox = ({ value, isClicked, checked }) => {
 const CheckBoxForm = (props) => {
   const user = props.user;
   const options = [
-    { name: "Construction", clicked: user.preferences.construction },
-    { name: "IT", clicked: user.preferences.it },
-    { name: "Finance", clicked: user.preferences.finance },
-    { name: "Medicine", clicked: user.preferences.medicin },
-    { name: "Currency", clicked: user.preferences.currency },
+    { name: 'Construction', clicked: user.preferences.construction },
+    { name: 'IT', clicked: user.preferences.it },
+    { name: 'Finance', clicked: user.preferences.finance },
+    { name: 'Medicine', clicked: user.preferences.medicin },
+    { name: 'Currency', clicked: user.preferences.currency },
   ];
   const [selectedOptions, setSelectedOptions] = useState(options);
   const [mounted, setMounted] = useState(false);
 
   const GenerateCheckBox = () => {
     return selectedOptions.map((option, index) => (
-      <CheckBox
-        key={index}
-        isClicked={() => checked(index)}
-        checked={option.clicked}
-        value={option.name}
-      />
+      <CheckBox key={index} isClicked={() => checked(index)} checked={option.clicked} value={option.name} />
     ));
   };
 
@@ -47,8 +42,6 @@ const CheckBoxForm = (props) => {
     let optionsArr = [...selectedOptions];
     optionsArr[index].clicked = !optionsArr[index].clicked;
     setSelectedOptions(optionsArr);
-
-    //console.log(optionsArr);
   };
 
   useEffect(() => {
@@ -58,7 +51,7 @@ const CheckBoxForm = (props) => {
     } else {
       props.actions.onUpdatePreferences(user).then((result) => {
         if (!result) {
-          alert("could not save user info");
+          alert('could not save user info');
         }
       });
     }
