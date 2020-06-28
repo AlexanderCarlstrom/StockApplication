@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import HomeIcon from '@material-ui/icons/Home';
+//import HomeIcon from '@material-ui/icons/Home';
 import Portfolio from './Portfolio/Portfolio';
 import Settings from './Settings/Settings';
 import UserConsumer from '../../logic/UserConsumer';
@@ -8,6 +8,7 @@ import Home from './Home/Home';
 import { Button, withStyles, Drawer, Toolbar, Typography, Divider, List, ListItem } from '@material-ui/core';
 import React from 'react';
 import './Dashboard.css';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -22,16 +23,16 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = (props) => {
   return (
     <BrowserRouter>
-      <div>
+      <div id="dashBoardContainer">
         <div className="dashboard-nav">
           <div>
-            <NavigationBar />
+            <NavigationBar logout={props.actions.onLogout} history={props.history} />
           </div>
         </div>
         <div className="content">
           <div>
             <Switch>
-              <Route path="/dashboard/" component={Home} exact />
+              <Route exact path="/dashboard/" component={Home} />
               <Route path="/dashboard/settings" component={Settings} />
               <Route path="/dashboard/portfolio" component={Portfolio} />
             </Switch>
@@ -42,47 +43,59 @@ const Dashboard = (props) => {
   );
 };
 
-const NavigationBar = () => {
+const NavigationBar = (props) => {
   const classes = useStyles();
 
+  const logout = () => {
+    props.logout();
+    props.history.push('/');
+  };
+
   return (
-    <Drawer
-      className={classes.drawer}
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-      variant="permanent"
-      anchor="left"
-      color="primary"
-    >
-      <Toolbar>
-        <Typography variant="h5">Stock Application</Typography>
-      </Toolbar>
-      <Divider />
-      <List>
-        <NavLink to="/dashboard/" style={{ textDecoration: 'none' }} activeClassName="is-active" exact={true}>
-          <ListItem button key="home">
-            <StyledButton disableElevation>Home</StyledButton>{' '}
-          </ListItem>
-        </NavLink>{' '}
-        <NavLink to="/dashboard/settings" style={{ textDecoration: 'none' }} activeClassName="is-active">
-          <ListItem button key="home">
-            <StyledButton disableElevation>Settings</StyledButton>{' '}
-          </ListItem>
-        </NavLink>{' '}
-        <NavLink to="/dashboard/portfolio" style={{ textDecoration: 'none' }} activeClassName="is-active">
-          <ListItem button key="home">
-            <StyledButton disableElevation>Portfolio</StyledButton>{' '}
-          </ListItem>
-        </NavLink>
-      </List>
-    </Drawer>
+    <React.Fragment>
+      <Drawer
+        className={classes.drawer}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        variant="permanent"
+        anchor="left"
+        color="primary"
+      >
+        <Toolbar>
+          <Typography variant="h5">Stock Application</Typography>
+        </Toolbar>
+        <Divider />
+        <div className="drawer-content">
+          <List>
+            <NavLink to="/dashboard/" style={{ textDecoration: 'none' }} activeClassName="is-active" exact={true}>
+              <ListItem button key="home">
+                <StyledButton disableElevation>Home</StyledButton>{' '}
+              </ListItem>
+            </NavLink>{' '}
+            <NavLink to="/dashboard/settings" style={{ textDecoration: 'none' }} activeClassName="is-active">
+              <ListItem button key="home">
+                <StyledButton disableElevation>Settings</StyledButton>{' '}
+              </ListItem>
+            </NavLink>{' '}
+            <NavLink to="/dashboard/portfolio" style={{ textDecoration: 'none' }} activeClassName="is-active">
+              <ListItem button key="home">
+                <StyledButton disableElevation>Portfolio</StyledButton>{' '}
+              </ListItem>
+            </NavLink>
+          </List>
+          <Button color="primary" size="large" variant="contained" onClick={logout} className="logout-btn">
+            Logout
+          </Button>
+        </div>
+      </Drawer>
+    </React.Fragment>
   );
 };
 
 const StyledButton = withStyles({
   root: {
-    background: 'linear-gradient(10deg, #FFFFFF 30%, #FFFFFF 90%)',
+    background: 'white',
     borderRadius: 3,
     margin: 10,
     color: 'black',

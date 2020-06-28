@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Settings.css';
 import { Checkbox, FormGroup, Button } from '@material-ui/core';
+import UserConsumer from '../../../../logic/UserConsumer';
 
-const Preference = () => {
+const Preference = (props) => {
   return (
     <div className="preference">
-      <CheckBoxForm />
+      <CheckBoxForm user={props.user} actions={props.actions} />
     </div>
   );
 };
@@ -13,20 +14,23 @@ const Preference = () => {
 const CheckBox = ({ value, isClicked, checked }) => {
   return (
     <label>
-      <Checkbox onChange={isClicked} checked={checked} />
+      <Checkbox color="primary" onChange={isClicked} checked={checked} />
       {value}
     </label>
   );
 };
 
-const CheckBoxForm = () => {
+const CheckBoxForm = (props) => {
+  const user = props.user;
   const options = [
-    { name: 'Finans', clicked: true },
-    { name: 'Trees', clicked: true },
-    { name: 'Industri', clicked: false },
+    { name: 'Construction', clicked: user.preferences.construction },
+    { name: 'IT', clicked: user.preferences.it },
+    { name: 'Finance', clicked: user.preferences.finance },
+    { name: 'Medicine', clicked: user.preferences.medicin },
+    { name: 'Currency', clicked: user.preferences.currency },
   ];
-
   const [selectedOptions, setSelectedOptions] = useState(options);
+  const [mounted, setMounted] = useState(false);
 
   const GenerateCheckBox = () => {
     return selectedOptions.map((option, index) => (
@@ -38,11 +42,43 @@ const CheckBoxForm = () => {
     let optionsArr = [...selectedOptions];
     optionsArr[index].clicked = !optionsArr[index].clicked;
     setSelectedOptions(optionsArr);
-
-    console.log(optionsArr);
   };
 
-  const handleSubmit = (e) => {};
+  useEffect(() => {
+    user.preferences = updatePreferencesFromCheckboxValues();
+    if (!mounted) {
+      setMounted(true);
+    } else {
+      props.actions.onUpdatePreferences(user).then((result) => {
+        if (!result) {
+          alert('could not save user info');
+        }
+      });
+    }
+  }, [selectedOptions]);
+
+  const updatePreferencesFromCheckboxValues = () => {
+    const returnObject = {
+      construction: selectedOptions[0].clicked,
+      it: selectedOptions[1].clicked,
+      finance: selectedOptions[2].clicked,
+      medicin: selectedOptions[3].clicked,
+      currency: selectedOptions[4].clicked,
+    };
+    return returnObject;
+  };
+
+  const handleSubmit = (e) => {
+    // if (!mounted) {
+    //   setMounted(true);
+    // } else {
+    //   props.actions.onUpdatePreferences(selectedOptions).then((result) => {
+    //     if (!result) {
+    //       alert("could not save user info");
+    //     }
+    //   });
+    // }
+  };
 
   return (
     <div className="form-content">
@@ -58,4 +94,4 @@ const CheckBoxForm = () => {
   );
 };
 
-export default Preference;
+export default UserConsumer(Preference);

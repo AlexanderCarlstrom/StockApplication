@@ -51,9 +51,10 @@ async function register(req, res) {
 
   // check that all values exist
   if (!firstname || !lastname || !idNumber || !address || !zip || !city || !email || !password) {
+    console.log('invalid body');
     return res.send({
       success: false,
-      message: 'invalid body',
+      forUser: false,
     });
   }
 
@@ -62,7 +63,8 @@ async function register(req, res) {
     if (user) {
       return res.send({
         success: false,
-        message: 'email already exist',
+        forUser: true,
+        message: 'Email Already Exist',
       });
     } else {
       // if email doesn't exist in db then hash password and save new user to db
@@ -85,9 +87,7 @@ async function register(req, res) {
             success: true,
           })
         )
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => console.log(err));
     }
   });
 }
@@ -98,9 +98,10 @@ function login(req, res) {
 
   // check that all values exist
   if (!email || !password) {
+    console.log('invalid body');
     return res.send({
       success: false,
-      message: 'invalid body',
+      forUser: false,
     });
   }
 
@@ -109,7 +110,8 @@ function login(req, res) {
     if (!user) {
       return res.send({
         success: false,
-        message: 'email not found',
+        forUser: true,
+        message: 'Email Not Found',
       });
     } else {
       // compare password from user input and password hash in db
@@ -117,7 +119,8 @@ function login(req, res) {
         if (!result) {
           return res.send({
             success: false,
-            message: 'invalid password',
+            forUser: true,
+            message: 'Incorrect Password',
           });
         } else {
           // if email exist in db create a jwt with user id and return to user
@@ -130,6 +133,10 @@ function login(req, res) {
             (err, token) => {
               if (err) {
                 console.log(err);
+                return res.send({
+                  success: false,
+                  forUser: false,
+                });
               } else {
                 res.send({
                   success: true,
@@ -146,16 +153,11 @@ function login(req, res) {
 }
 
 function loginWithId(req, res) {
-  User.findById(req.user.id, (err, user) => {
-    if (err) {
+  User.findById(req.user.id).then((user) => {
+    if (!user) {
+      console.log('user not found');
       return res.send({
         success: false,
-        message: err,
-      });
-    } else if (!user) {
-      return res.send({
-        success: false,
-        message: 'user not found',
       });
     } else {
       res.send({
@@ -171,27 +173,45 @@ function changePassword(req, res) {
   const newPassword = req.body.newPassword;
 
   if (!oldPassword || !newPassword) {
-    return res.status(400).send('invalid body');
+    console.log('invalid body');
+    return res.send({
+      success: false,
+      forUser: false,
+    });
   }
 
-  User.findById(req.user.id, (err, user) => {
-    if (err) {
-      return res.sendStatus(400);
-    } else if (!user) {
-      return res.status(401).send('user not found');
+  User.findById(req.user.id).then((user) => {
+    if (!user) {
+      return res.send({
+        success: false,
+        forUser: true,
+        message: 'Could Not Change Password',
+      });
     } else {
-      bcrypt.compare(oldPassword, req.user.password, (result) => {
+      bcrypt.compare(oldPassword, user.password).then((result) => {
         if (!result) {
-          res.status(401).send('invalid password');
+          res.send({
+            success: false,
+            forUser: true,
+            message: 'Incorrect Password',
+          });
         } else {
           bcrypt.hash(newPassword, 10, (err, hash) => {
             if (err) {
               console.log(err);
+              return res.send({
+                success: false,
+                forUser: false,
+              });
             } else {
               user.password = hash;
               user
                 .save()
-                .then(() => res.send('password changed'))
+                .then(() => {
+                  res.send({
+                    success: true,
+                  });
+                })
                 .catch((err) => console.log(err));
             }
           });
@@ -205,25 +225,19 @@ function updateUser(req, res) {
   const { firstname, lastname, address, zipCode, city, email } = req.body.user;
 
   if (!firstname || !lastname || !address || !zipCode || !city || !email) {
+    console.log('invalid body');
     return res.send({
       success: false,
-      message: 'invalid body',
+      forUser: false,
     });
   }
 
-  User.findById(req.user.id, (err, user) => {
-    if (err) {
-      console.log(err);
-      return res.send({
-        success: false,
-        message: err,
-      });
-    }
-
+  User.findById(req.user.id).then((user) => {
     if (!user) {
+      console.log('user not found');
       return res.send({
         success: false,
-        message: 'user not found',
+        forUser: false,
       });
     }
 
@@ -255,12 +269,49 @@ function updateUser(req, res) {
 function updatePreferences(req, res) {
   const preferences = req.body.preferences;
 
-  User.findById(req.user.id, (err, user) => {});
+  User.findById(req.user.id, (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.send({
+        success: false,
+        message: err,
+      });
+    }
+
+    if (!user) {
+      return res.send({
+        success: false,
+        message: 'user not found',
+      });
+    }
+
+    user.preferences = preferences;
+
+    user
+      .save()
+      .then((user) => {
+        return res.send({
+          success: true,
+          user: user,
+        });
+      })
+      .catch((err) => console.log(err));
+  });
 }
 
 // helper methods
 function trimUser(user) {
-  return _.pick(user, ['stocks', 'firstname', 'lastname', 'identityNumber', 'address', 'zipCode', 'city', 'email']);
+  return _.pick(user, [
+    'stocks',
+    'firstname',
+    'lastname',
+    'identityNumber',
+    'address',
+    'zipCode',
+    'city',
+    'email',
+    'preferences',
+  ]);
 }
 
 module.exports = router;

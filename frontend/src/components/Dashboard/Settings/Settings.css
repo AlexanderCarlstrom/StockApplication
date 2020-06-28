@@ -1,15 +1,16 @@
 .settings {
   background-color: rgb(212, 212, 212);
-  height: 1000px;
+  padding: 15px;
 }
+
 .settings-header {
-  width: 600px;
-  padding: 30px;
-  margin: auto;
+  padding: 15px;
   margin-bottom: 30px;
   border-bottom: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: rgb(250, 250, 250);
+  display: flex;
+  justify-content: center;
 }
 
 h1 {
@@ -20,13 +21,16 @@ h1 {
   font-weight: bold;
 }
 
-.settings-content .form-content {
-  width: 600px;
+.form-content {
   background-color: rgb(250, 250, 250);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   position: relative;
   padding: 30px;
-  margin: auto;
+  width:1620px;
+}
+
+.settings-content{
+  width: 600px;
 }
 
 .profileImg {
@@ -47,8 +51,18 @@ h1 {
   font-size: 10px;
   margin-top: 10px;
 } */
-
+/* 
 .form-line {
   float: left;
   width: 270px;
+} */
+
+.MuiTextField-root{
+  margin-top:15px !important;
+  width:300px;
+  margin:auto;
+}
+
+.settingsPageWrapper {
+  background-color: rgb(212, 212, 212);
 }

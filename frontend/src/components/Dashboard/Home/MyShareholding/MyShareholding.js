@@ -1,128 +1,132 @@
-import React from "react";
-import ProgressBar from "react-bootstrap/ProgressBar";
-import { Button } from "@material-ui/core";
-import "./MyShareholdning.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+//import { Button } from "@material-ui/core";
+import './MyShareholdning.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import UserConsumer from '../../../../logic/UserConsumer';
 
 class MyShareholding extends React.Component {
   constructor(props) {
     super(props);
-    this.userData = this.props.getUserData();
-    this.userData.ownedShares = this.userData.ownedShares.sort((a, b) =>
-      a.typeOfTrade > b.typeOfTrade ? 1 : -1
-    );
-    this.industryArray = this.industries();
+    this.stocks = props.user.stocks.sort((a, b) => (a.industry > b.industry ? 1 : -1));
+    this.industries = this.getIndustries();
   }
 
-  industries = () => {
-    let industryArray = [];
-    this.userData.ownedShares.forEach((ownedShare) => {
-      if (!industryArray.includes(ownedShare.typeOfTrade)) {
-        industryArray.push(ownedShare.typeOfTrade);
+  getIndustries = () => {
+    let industries = [
+      {
+        name: 'construction',
+        stocks: new Array(),
+      },
+      {
+        name: 'it',
+        stocks: new Array(),
+      },
+      {
+        name: 'finance',
+        stocks: new Array(),
+      },
+      {
+        name: 'medicine',
+        stocks: new Array(),
+      },
+      {
+        name: 'currency',
+        stocks: new Array(),
+      },
+    ];
+
+    this.stocks.map((stock) => {
+      switch (stock.industry.toLowerCase()) {
+        case 'construction':
+          industries[0].stocks.push(stock);
+          break;
+        case 'it':
+          industries[1].stocks.push(stock);
+          break;
+        case 'finance':
+          industries[2].stocks.push(stock);
+          break;
+        case 'medicin':
+          industries[3].stocks.push(stock);
+          break;
+        case 'currency':
+          industries[4].stocks.push(stock);
+          break;
+        default:
+          break;
       }
     });
-    return industryArray;
+
+    return industries;
   };
 
-  getCompanyString = (industryName) => {
-    const industryCompanies = this.userData.ownedShares.filter(
-      (ownedShare) => ownedShare.typeOfTrade === industryName
-    );
-    if (industryCompanies.length === 1) {
-      return industryCompanies[0].companyName;
-    } else if (industryCompanies.length === 2) {
-      return (
-        industryCompanies[0].companyName +
-        ", " +
-        industryCompanies[1].companyName
-      );
-    } else if (industryCompanies.length > 2) {
-      return (
-        industryCompanies[0].companyName +
-        ", " +
-        industryCompanies[1].companyName +
-        " +" +
-        (industryCompanies.length - 2).toString()
-      ).toString();
-    }
+  getCompanyString = (industry) => {
+    let stockString = '';
+    industry.slice(0, 4).map((stock, index) => {
+      if (index > 0) {
+        stockString += ', ';
+      }
+      stockString += stock.name;
+
+      if (index === 3) {
+        stockString += '...';
+      }
+    });
+    return stockString;
   };
 
   getTotalIndustryValue = (industryName) => {
-    const industryCompanies = this.userData.ownedShares.filter(
-      (ownedShare) => ownedShare.typeOfTrade === industryName
-    );
+    const industryCompanies = this.userData.ownedShares.filter((ownedShare) => ownedShare.typeOfTrade === industryName);
     let totalValue = 0;
     industryCompanies.forEach((company) => (totalValue += company.value));
     return totalValue;
   };
-
-  getTotalAssetsValue = () => {
-    let totalValue=0;
-    this.userData.ownedShares.map(share=>totalValue+=share.value);
-    totalValue = this.numberFormatFix(totalValue);
-    return totalValue.toString();
-  }
-
-  numberFormatFix = (number) =>{
-    number = number.toLocaleString(
-      undefined, // leave undefined to use the browser's locale,
-                 // or use a string like 'en-US' to override it.
-      { minimumFractionDigits: 0 }
-    );
-    return number.toString();
-  }
 
   render() {
     return (
       <div>
         <div className="containerDiv" id="headerDiv">
           <h3 className="componentHeaderText">My Holdings</h3>
-          <Button variant="contained" color="primary" id="editProfileButton">
-            My Portfolio
-          </Button>
         </div>
         <div id="lastUpdatedAndValue">
-          <h1>{this.getTotalAssetsValue()} SEK</h1>
-          <p id="lastUpdatedText">Last updated: {this.userData.lastUpdate.toDateString()}</p>
+          <h1>{this.props.totalValue.toFixed(4)} USD</h1>
         </div>
         <div id="barDiv">
           <ProgressBar>
-            {this.userData.ownedShares.map((ownedShare, index) => (
-              <ProgressBar
-                variant={
-                  "industry" +
-                  this.industryArray.indexOf(ownedShare.typeOfTrade).toString()
-                }
-                now={100 / this.userData.ownedShares.length}
-                key={index}
-              />
-            ))}
+            {this.industries.map((industry, index) => {
+              if (industry.stocks.length > 0) {
+                return (
+                  <ProgressBar
+                    variant={'industry' + index}
+                    now={(100 / this.stocks.length) * industry.stocks.length}
+                    key={industry.name}
+                  />
+                );
+              } else return;
+            })}
           </ProgressBar>
         </div>
         <div id="companySummaryDiv">
-          {this.industryArray.map((industry, index) => (
-            <div className="industrySummaryDiv" key={index + 1 * 40}>
-              <div
-                key={index + 1 * 30}
-                className={"industry" + index.toString()}
-              ></div>
-              <div className="companyIndustryDiv">
-                <p key={index} className="industryText">
-                  {industry}
-                </p>
-                <p key={index + 1 * 10} className="companyText">
-                  {this.getCompanyString(industry)}
-                </p>
-              </div>
-              <p key={index + 1 * 20} className="valueText">
-                {this.numberFormatFix(this.getTotalIndustryValue(industry))} SEK
-              </p>
-            </div>
-          ))}
+          {this.industries.map((industry, index) => {
+            if (industry.stocks.length > 0) {
+              return (
+                <div className="industrySummaryDiv" key={industry.name}>
+                  <div className={'industry' + index.toString()}></div>
+                  <div className="companyIndustryDiv">
+                    <p className="industryText">{industry.name.toUpperCase()}</p>
+                    <p className="companyText">{this.getCompanyString(industry.stocks)}</p>
+                  </div>
+                </div>
+              );
+            } else {
+              return;
+            }
+          })}
         </div>
       </div>
     );
   }
 }
 
-export default MyShareholding;
+export default UserConsumer(MyShareholding);

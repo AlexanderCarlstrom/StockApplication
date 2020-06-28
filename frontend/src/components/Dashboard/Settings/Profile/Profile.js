@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button } from '@material-ui/core';
-import DefaultPic from './defaultProfile.png';
-import '../Settings.css';
-import IconButton from '@material-ui/core/IconButton';
-import BrushIcon from '@material-ui/icons/Brush';
-import UserConsumer from '../../../../logic/UserConsumer';
+import React, { useState, useEffect } from "react";
+import { TextField, Button } from "@material-ui/core";
+import DefaultPic from "./defaultProfile.png";
+import "../Settings.css";
+import IconButton from "@material-ui/core/IconButton";
+import BrushIcon from "@material-ui/icons/Brush";
+import UserConsumer from "../../../../logic/UserConsumer";
 
 const Profile = (props) => (
   <div className="profile">
@@ -33,13 +33,18 @@ const ProfileImage = () => {
   return (
     <div className="form-content">
       <div className="profileImg">
-        <img ref={uploadedImage} width="100px" style={{ borderRadius: 50 }} alt="profile" />
+        <img
+          src={DefaultPic}
+          width="100px"
+          style={{ borderRadius: 50 }}
+          alt="profile"
+        />
         <input
           accept="image/*"
           className="inputBtn"
           id="button-file"
           type="file"
-          style={{ display: 'none ' }}
+          style={{ display: "none " }}
           onChange={handleImageUpload}
         />
         <label style={{ marginTop: 40 }} htmlFor="button-file">
@@ -72,7 +77,7 @@ const ProfileForm = (props) => {
     } else {
       props.actions.onUpdateUser(userInfo).then((result) => {
         if (!result) {
-          alert('could not save user info');
+          alert("could not save user info");
         }
       });
     }
