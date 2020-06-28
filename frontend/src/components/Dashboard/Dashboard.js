@@ -8,6 +8,7 @@ import Home from './Home/Home';
 import { Button, withStyles, Drawer, Toolbar, Typography, Divider, List, ListItem } from '@material-ui/core';
 import React from 'react';
 import './Dashboard.css';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -31,7 +32,7 @@ const Dashboard = (props) => {
         <div className="content">
           <div>
             <Switch>
-              <Route path="/dashboard/" component={Home} exact />
+              <Route exact path="/dashboard/" component={Home} />
               <Route path="/dashboard/settings" component={Settings} />
               <Route path="/dashboard/portfolio" component={Portfolio} />
             </Switch>
